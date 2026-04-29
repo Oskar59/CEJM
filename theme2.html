@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thème 2 - La régulation de l'activité économique - CEJM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #4f46e5; --primary-soft: #e0e7ff; --bg: #f5f7ff; --surface: #ffffff; --text: #111827; --border: #e5e7eb; }
+        @media (prefers-color-scheme: dark) { :root { --bg: #0b1120; --surface: #111827; --text: #f8fafc; --border: #1f2937; --primary-soft:#1e1b4b; } }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: radial-gradient(circle at 0% 0%, rgba(79,70,229,0.12), transparent 32%), radial-gradient(circle at 100% 0%, rgba(6,182,212,0.1), transparent 34%), var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
+        .container { max-width: 1120px; margin: 0 auto; padding: 20px; }
+        
+        .top-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; position: sticky; top: 0; background: rgba(255,255,255,0.78); backdrop-filter: blur(12px); z-index: 100; }
+        .back-nav { display: flex; gap: 12px; flex-wrap: wrap; }
+        .back-nav a { text-decoration: none; color: var(--primary); font-weight: 600; }
+        .btn-print { background: linear-gradient(135deg, var(--primary), #06b6d4); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;}
+        .btn-print:hover { opacity: 0.8; }
+
+        header.theme-header { margin-bottom: 30px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: 0 20px 40px -30px rgba(79,70,229,0.65); }
+        header.theme-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid var(--border); overflow-x: auto; scrollbar-width: none; background: var(--surface); padding: 8px; border-radius: 14px; }
+        .tab-btn { padding: 10px 16px; border: 1px solid transparent; background: none; color: var(--text); cursor: pointer; font-weight: 600; font-family: inherit; border-radius: 10px; white-space: nowrap; }
+        .tab-btn.active { color: #fff; border-color: var(--primary); background: linear-gradient(135deg, var(--primary), #06b6d4); }
+        .tab-content { display: none; animation: fadeIn 0.4s; }
+        .tab-content.active { display: block; }
+        .fiche-section { background: var(--surface); padding: 30px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 20px; box-shadow: 0 20px 40px -30px rgba(79,70,229,0.6); }
+        .fiche-section h3 { color: var(--primary); margin-bottom: 15px; }
+        .fiche-section ul { padding-left: 20px; margin-bottom: 15px; }
+        .fiche-section li { margin-bottom: 8px; }
+
+        .grid-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card-item { background: var(--surface); padding: 20px; border-radius: 15px; border-left: 5px solid var(--primary); }
+        .card-item strong { display: block; font-size: 1.1rem; margin-bottom: 5px; }
+
+        #quiz-container { background: var(--surface); padding: 40px; border-radius: 24px; text-align: center; }
+        .question { font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
+        .options { display: grid; gap: 10px; margin-bottom: 30px; }
+        .option-btn { padding: 15px; border: 2px solid var(--border); border-radius: 12px; background: var(--bg); color: var(--text); cursor: pointer; transition: 0.2s; font-family: inherit; font-size: 1rem; }
+        .option-btn:hover { border-color: var(--primary); background: var(--surface); }
+        .correct { background: #22c55e !important; color: white; border-color: #22c55e; }
+        .wrong { background: #ef4444 !important; color: white; border-color: #ef4444; }
+        
+        #pomodoro-widget { position: fixed; bottom: 20px; right: 20px; background: var(--surface); border: 2px solid var(--primary); padding: 15px 20px; border-radius: 50px; display: flex; align-items: center; gap: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; }
+        #pomodoro-time { font-size: 1.5rem; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
+        .pomo-btn { background: var(--primary); color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 1rem; display: flex; justify-content: center; align-items: center;}
+        
+        a:focus-visible, button:focus-visible { outline: 3px solid color-mix(in srgb, var(--primary) 60%, white); outline-offset: 2px; border-radius: 8px; }
+        @media (max-width: 768px) {
+            .container { padding: 14px; }
+            .top-bar { flex-direction: column; align-items: flex-start; }
+            .grid-cards { grid-template-columns: 1fr; }
+            #pomodoro-widget { right: 12px; bottom: 12px; transform: scale(0.92); transform-origin: bottom right; }
+        }
+        @media print {
+            body { background: white; color: black; }
+            .no-print, nav, .tabs, #pomodoro-widget, #quiz { display: none !important; }
+            .container { max-width: 100%; padding: 0; }
+            .tab-content { display: block !important; } 
+            .fiche-section { border: 1px solid #ccc; page-break-inside: avoid; }
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar no-print">
+            <nav class="back-nav" aria-label="Navigation thème">
+                <a href="index.html"><i class="fa-solid fa-house"></i> Accueil</a>
+                <a href="methodologie.html"><i class="fa-solid fa-wand-magic-sparkles"></i> Méthodo</a>
+                <a href="quiz-blanc.html"><i class="fa-solid fa-trophy"></i> Quiz blanc</a>
+            </nav>
+            <button class="btn-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Anti-sèche (PDF)</button>
+        </div>
+
+        <header class="theme-header">
+            <span style="color:var(--primary); font-weight: 700;">THÈME 2</span>
+            <h1>La régulation de l'activité économique</h1>
+        </header>
+
+        <div class="tabs no-print">
+            <button class="tab-btn active" onclick="openTab(event, 'fiche')">Fiche de synthèse</button>
+            <button class="tab-btn" onclick="openTab(event, 'lexique')">Lexique & Auteurs</button>
+            <button class="tab-btn" onclick="openTab(event, 'quiz')">Quiz Interactif</button>
+        </div>
+
+        <div id="fiche" class="tab-content active">
+            <div class="fiche-section">
+                <h3>1. L'intervention de l'État</h3>
+                <p>L'économiste <strong>Richard Musgrave</strong> théorise les 3 fonctions de l'État : Allocation (financer les biens publics), Redistribution (réduire les inégalités) et Régulation (stabiliser l'économie via les politiques conjoncturelles d'inspiration <strong>Keynésienne</strong>).</p>
+                <ul>
+                    <li><strong>Politique conjoncturelle :</strong> Action à court terme (relance vs rigueur) via le budget de l'État ou la politique monétaire (BCE).</li>
+                    <li><strong>Politique structurelle :</strong> Action à long terme pour modifier l'économie en profondeur (ex: transition écologique, politique industrielle).</li>
+                </ul>
+            </div>
+            <div class="fiche-section">
+                <h3>2. Le droit de la concurrence</h3>
+                <p>Le marché doit être libre, mais l'État veille via des Autorités Administratives Indépendantes (AAI) comme <strong>l'Autorité de la Concurrence</strong>.</p>
+                <ul>
+                    <li><strong>Ententes illicites :</strong> Accords secrets entre entreprises pour fixer les prix (cartels).</li>
+                    <li><strong>Abus de position dominante :</strong> Profiter de son monopole pour écraser la concurrence.</li>
+                </ul>
+            </div>
+            <div class="fiche-section">
+                <h3>3. La protection de l'innovation</h3>
+                <p>Pour inciter à la R&D, l'économiste <strong>Joseph Schumpeter</strong> rappelle l'importance de protéger l'innovation. Le droit de la propriété industrielle octroie un monopole temporaire.</p>
+                <ul>
+                    <li><strong>Brevet (INPI) :</strong> Protège une innovation technique pour 20 ans.</li>
+                    <li><strong>Marque :</strong> Protège un signe distinctif (renouvelable indéfiniment tous les 10 ans).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="lexique" class="tab-content">
+            <div class="grid-cards">
+                <div class="card-item"><strong>A. Pigou</strong>Économiste qui propose la "taxe pigouvienne" (principe du pollueur-payeur) pour corriger les externalités négatives.</div>
+                <div class="card-item"><strong>Contrefaçon</strong>Délit consistant à reproduire ou utiliser une œuvre, une marque ou un brevet sans autorisation.</div>
+                <div class="card-item"><strong>Politique monétaire</strong>Gérée par la BCE en zone euro. Elle joue sur les taux d'intérêt directeurs pour contrôler l'inflation.</div>
+                <div class="card-item"><strong>J.M. Keynes</strong>Père de la macroéconomie, il prône l'intervention de l'État en cas de crise pour relancer la demande.</div>
+            </div>
+        </div>
+
+        <div id="quiz" class="tab-content no-print">
+            <div id="quiz-container">
+                <div id="question-box">
+                    <p class="question" id="q-text">Chargement...</p>
+                    <div class="options" id="options-box"></div>
+                </div>
+                <p id="quiz-feedback" style="font-weight: 600; font-size: 1.1rem; margin-top: 15px;"></p>
+            </div>
+        </div>
+
+        <div id="pomodoro-widget" class="no-print">
+            <i class="fa-solid fa-stopwatch" style="color:var(--primary); font-size:1.5rem;"></i>
+            <span id="pomodoro-time">25:00</span>
+            <button class="pomo-btn" id="pomo-start" onclick="togglePomodoro()"><i class="fa-solid fa-play"></i></button>
+            <button class="pomo-btn" style="background:#ef4444;" onclick="resetPomodoro()"><i class="fa-solid fa-rotate-right"></i></button>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        const quizData = [
+            { q: "Selon Richard Musgrave, quelle fonction de l'État vise à réduire les inégalités ?", options: ["La régulation", "L'allocation", "La redistribution"], correct: 2 },
+            { q: "Où une entreprise française doit-elle déposer son brevet ?", options: ["À la CNIL", "À l'INPI", "Au Tribunal de Commerce"], correct: 1 },
+            { q: "Sanctionner un cartel fixant les prix en secret relève de la lutte contre :", options: ["L'abus de position dominante", "Les ententes illicites", "La concurrence déloyale"], correct: 1 }
+        ];
+
+        let currentQ = 0;
+        function loadQuestion() {
+            const q = quizData[currentQ];
+            document.getElementById("q-text").innerText = q.q;
+            const optionsBox = document.getElementById("options-box");
+            optionsBox.innerHTML = "";
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement("button");
+                btn.classList.add("option-btn");
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsBox.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(index, btnElement) {
+            const feedback = document.getElementById("quiz-feedback");
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(b => b.disabled = true);
+
+            if(index === quizData[currentQ].correct) {
+                btnElement.classList.add("correct");
+                feedback.innerHTML = "<span style='color:#22c55e'>Excellente réponse !</span>";
+                currentQ++;
+                if(currentQ < quizData.length) { setTimeout(() => { feedback.innerText = ""; loadQuestion(); }, 1500); } 
+                else { setTimeout(() => { document.getElementById("question-box").innerHTML = "<h3 style='color:var(--primary)'>Quiz terminé ! Objectif atteint.</h3>"; feedback.innerText = ""; }, 1500); }
+            } else {
+                btnElement.classList.add("wrong");
+                buttons[quizData[currentQ].correct].classList.add("correct");
+                feedback.innerHTML = "<span style='color:#ef4444'>Dommage, regarde la bonne réponse.</span>";
+                currentQ++;
+                if(currentQ < quizData.length) { setTimeout(() => { feedback.innerText = ""; loadQuestion(); }, 2500); } 
+                else { setTimeout(() => { document.getElementById("question-box").innerHTML = "<h3 style='color:var(--primary)'>Quiz terminé ! Pense à revoir la fiche.</h3>"; feedback.innerText = ""; }, 2500); }
+            }
+        }
+        loadQuestion();
+
+        let pomoInterval;
+        let pomoTime = 25 * 60;
+        let isPomoRunning = false;
+        
+        function updatePomoDisplay() {
+            let minutes = Math.floor(pomoTime / 60);
+            let seconds = pomoTime % 60;
+            document.getElementById('pomodoro-time').innerText = 
+                (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        }
+
+        function togglePomodoro() {
+            const btnIcon = document.querySelector('#pomo-start i');
+            if (isPomoRunning) {
+                clearInterval(pomoInterval);
+                btnIcon.classList.remove('fa-pause');
+                btnIcon.classList.add('fa-play');
+            } else {
+                pomoInterval = setInterval(() => {
+                    if (pomoTime > 0) {
+                        pomoTime--;
+                        updatePomoDisplay();
+                    } else {
+                        clearInterval(pomoInterval);
+                        alert("Pomodoro terminé ! Prends 5 minutes de pause.");
+                    }
+                }, 1000);
+                btnIcon.classList.remove('fa-play');
+                btnIcon.classList.add('fa-pause');
+            }
+            isPomoRunning = !isPomoRunning;
+        }
+
+        function resetPomodoro() {
+            clearInterval(pomoInterval);
+            isPomoRunning = false;
+            pomoTime = 25 * 60;
+            updatePomoDisplay();
+            const btnIcon = document.querySelector('#pomo-start i');
+            btnIcon.classList.remove('fa-pause');
+            btnIcon.classList.add('fa-play');
+        }
+    </script>
+</body>
+</html>

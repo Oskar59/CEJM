@@ -1,6 +1,116 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T4 — Impact du numérique · CEJM Flash</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="cejm-shared.css">
+<style>:root{--tc:#fbbf24;--tc-soft:rgba(251,191,36,0.1);--tc-border:rgba(251,191,36,0.25);}</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">CEJM<span>FLASH</span></a>
+  <div class="nav-links">
+    <a href="index.html"><i class="fa-solid fa-house fa-sm"></i> <span>Accueil</span></a>
+    <a href="methodologie.html"><i class="fa-solid fa-wand-magic-sparkles fa-sm"></i> <span>Méthodo</span></a>
+    <a href="quiz-blanc.html"><i class="fa-solid fa-trophy fa-sm"></i> <span>Quiz blanc</span></a>
+    <a href="index.html" class="nav-btn-flash"><i class="fa-solid fa-bolt fa-sm"></i> Flash</a>
+  </div>
+</nav>
+<div class="page-wrap container">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+    <nav class="breadcrumb"><a href="index.html"><i class="fa-solid fa-house fa-xs"></i> Accueil</a><span>/</span><a href="index.html#themes">Thèmes</a><span>/</span><span style="color:var(--tc);font-weight:600;">Thème 4</span></nav>
+    <button class="btn-print no-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Anti-sèche PDF</button>
+  </div>
+  <header class="theme-header">
+    <span class="eyebrow"><i class="fa-solid fa-laptop-code fa-xs"></i> Thème 4 · Management / Droit</span>
+    <h1>L'impact du numérique sur l'entreprise</h1>
+    <p>Nouveaux modèles économiques, Systèmes d'Information, RGPD. Auteurs : Rifkin. Notions : freemium, yield management, CNIL, DPO, PGI/ERP.</p>
+  </header>
+  <div class="tabs no-print">
+    <button class="tab-btn active" onclick="openTab(event,'fiche')"><i class="fa-solid fa-file-lines fa-sm"></i> Fiche de synthèse</button>
+    <button class="tab-btn" onclick="openTab(event,'lexique')"><i class="fa-solid fa-book fa-sm"></i> Lexique & Auteurs</button>
+    <button class="tab-btn" onclick="openTab(event,'quiz')"><i class="fa-solid fa-circle-question fa-sm"></i> Quiz interactif</button>
+  </div>
+  <div id="fiche" class="tab-content active">
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-rocket"></i> 1. Bouleversement des modèles économiques</h3>
+      <p>Selon <strong>Jeremy Rifkin</strong> (Coût marginal zéro, 2014) : reproduire un bien immatériel via internet ne coûte presque rien. L'économie glisse de la propriété vers l'<strong>usage (fonctionnalité)</strong> — Cloud, SaaS, streaming.</p>
+      <ul>
+        <li><strong>Freemium :</strong> service de base gratuit + options premium payantes (Spotify, LinkedIn).</li>
+        <li><strong>Abonnement :</strong> revenu récurrent, fidélisation (Netflix, SaaS).</li>
+        <li><strong>Yield Management :</strong> tarification dynamique selon la demande en temps réel (SNCF, hôtellerie, aérien).</li>
+        <li><strong>Effet de réseau :</strong> la valeur du service augmente avec le nombre d'utilisateurs → monopoles naturels (GAFAM).</li>
+        <li><strong>Désintermédiation :</strong> suppression des intermédiaires traditionnels grâce au web (achat direct au producteur).</li>
+      </ul>
+    </div>
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-server"></i> 2. Le Système d'Information (SI)</h3>
+      <p>Le SI regroupe <strong>matériels, logiciels, données et personnes</strong> qui collectent, traitent et diffusent l'information au sein de l'organisation. Devenu avantage concurrentiel majeur.</p>
+      <ul>
+        <li><strong>PGI / ERP :</strong> Progiciel de Gestion Intégré — centralise toutes les fonctions (compta, RH, stock, production) en temps réel.</li>
+        <li><strong>CRM :</strong> gestion de la relation client (Salesforce).</li>
+        <li><strong>Risques cyber :</strong> ransomware, phishing, intrusion. Nécessite politique de sécurité (PSSI) et sauvegardes.</li>
+      </ul>
+    </div>
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-lock"></i> 3. Droit : Protection des données et de l'immatériel</h3>
+      <ul>
+        <li><strong>RGPD :</strong> Règlement Européen (2018). Impose : consentement explicite, droit à l'oubli, portabilité, nomination d'un <strong>DPO</strong>. Contrôlé par la <strong>CNIL</strong> en France. Sanction : jusqu'à 4% du CA mondial.</li>
+        <li><strong>Contrat électronique :</strong> même force probante que le contrat papier si l'identité des parties est garantie (signature électronique qualifiée).</li>
+        <li><strong>Logiciels :</strong> protégés par le droit d'auteur (70 ans après mort de l'auteur). Pas de brevet en France.</li>
+      </ul>
+    </div>
+  </div>
+  <div id="lexique" class="tab-content">
+    <div class="lexique-grid">
+      <div class="lex-card"><strong>J. Rifkin</strong><span>"Coût marginal zéro" (2014) : la reproductibilité infinie des biens numériques remet en cause le modèle capitaliste classique.</span></div>
+      <div class="lex-card"><strong>Freemium</strong><span>Service de base gratuit + fonctionnalités premium payantes. Objectif : acquérir massivement puis monétiser une fraction.</span></div>
+      <div class="lex-card"><strong>Yield Management</strong><span>Tarification flexible en temps réel selon la demande (aérien, hôtellerie, SNCF). Maximise le revenu par capacité disponible.</span></div>
+      <div class="lex-card"><strong>Effet de réseau</strong><span>La valeur d'un service croît avec le nombre d'utilisateurs. Crée des positions dominantes difficiles à contester (GAFAM).</span></div>
+      <div class="lex-card"><strong>RGPD</strong><span>Règlement Général sur la Protection des Données (UE, 2018). Droits : accès, rectification, oubli, portabilité. DPO obligatoire dans certaines structures.</span></div>
+      <div class="lex-card"><strong>CNIL</strong><span>Commission Nationale de l'Informatique et des Libertés. Autorité française qui contrôle le respect du RGPD. Peut infliger de lourdes amendes.</span></div>
+      <div class="lex-card"><strong>PGI / ERP</strong><span>Progiciel de Gestion Intégré. Fusionne tous les modules métiers (compta, RH, logistique) en un seul SI transversal.</span></div>
+      <div class="lex-card"><strong>Désintermédiation</strong><span>Suppression des intermédiaires entre producteur et consommateur (ex : vente directe en ligne, BlaBlaCar vs agences de voyage).</span></div>
+    </div>
+  </div>
+  <div id="quiz" class="tab-content no-print">
+    <div class="quiz-wrap">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpf"></div></div>
+      <div class="quiz-counter">Question <span id="qnum">1</span> / 5</div>
+      <div class="quiz-question" id="qtext">Chargement…</div>
+      <div class="quiz-options" id="qopts"></div>
+      <div class="quiz-feedback" id="qfb"></div>
+    </div>
+  </div>
+</div>
+<div id="pomo-widget" class="no-print">
+  <i class="fa-solid fa-stopwatch" style="color:var(--tc);font-size:1.2rem;"></i>
+  <span id="pomo-time">25:00</span>
+  <button class="pomo-btn pomo-btn-start" id="pomo-start" onclick="togglePomo()"><i class="fa-solid fa-play"></i></button>
+  <button class="pomo-btn pomo-btn-reset" onclick="resetPomo()"><i class="fa-solid fa-rotate-right"></i></button>
+</div>
+<script>
+function openTab(e,id){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');e.currentTarget.classList.add('active');}
+const quiz=[
+  {q:"Qu'est-ce qu'un effet de réseau (externalité de réseau) ?",opts:["Une faille de sécurité informatique","La valeur augmente avec le nb d'utilisateurs","Une sous-traitance du réseau Wi-Fi"],a:1},
+  {q:"Quel organisme français sanctionne les violations du RGPD ?",opts:["La CNIL","L'ARCEP","L'INPI"],a:0},
+  {q:"Vendre un même siège d'avion à des prix différents selon la date d'achat est du :",opts:["Freemium","Yield Management","Crowdfunding"],a:1},
+  {q:"Selon Rifkin, dans l'économie numérique, reproduire une unité supplémentaire d'un bien immatériel coûte :",opts:["De plus en plus cher","Presque zéro","Exactement son prix de vente"],a:1},
+  {q:"Le RGPD impose à certaines organisations de nommer un :",opts:["DPO (Data Protection Officer)","CEO (Chief Executive Officer)","DSI (Directeur des SI)"],a:0},
+];
+let qi=0,done=new Set();
+function loadQ(){if(qi>=quiz.length){document.querySelector('.quiz-wrap').innerHTML='<div style="font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--tc)">Quiz terminé ! 🎉</div><p style="color:var(--muted);margin-top:8px;">Repasse à la fiche pour consolider.</p>';return;}const q=quiz[qi];document.getElementById('qnum').textContent=qi+1;document.getElementById('qpf').style.width=((qi+1)/quiz.length*100)+'%';document.getElementById('qtext').textContent=q.q;document.getElementById('qfb').innerHTML='';const box=document.getElementById('qopts');box.innerHTML=q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answer(${i},this)">${String.fromCharCode(65+i)}. ${o}</button>`).join('');}
+function answer(idx,btn){if(done.has(qi))return;done.add(qi);document.querySelectorAll('.quiz-opt').forEach(b=>b.disabled=true);const fb=document.getElementById('qfb');if(idx===quiz[qi].a){btn.classList.add('correct');fb.innerHTML='<span style="color:var(--green)">✅ Bonne réponse !</span>';}else{btn.classList.add('wrong');document.querySelectorAll('.quiz-opt')[quiz[qi].a].classList.add('correct');fb.innerHTML='<span style="color:var(--red)">❌ Revoir la fiche.</span>';}qi++;setTimeout(loadQ,1600);}
+loadQ();
+let pomoT=25*60,pomoR,pomoOn=false;
+function togglePomo(){pomoOn=!pomoOn;document.getElementById('pomo-start').innerHTML=pomoOn?'<i class="fa-solid fa-pause"></i>':'<i class="fa-solid fa-play"></i>';if(pomoOn){pomoR=setInterval(()=>{if(--pomoT<=0){clearInterval(pomoR);pomoOn=false;pomoT=25*60;}document.getElementById('pomo-time').textContent=`${String(Math.floor(pomoT/60)).padStart(2,'0')}:${String(pomoT%60).padStart(2,'0')}`;},1000);}else clearInterval(pomoR);}
+function resetPomo(){clearInterval(pomoR);pomoOn=false;pomoT=25*60;document.getElementById('pomo-time').textContent='25:00';document.getElementById('pomo-start').innerHTML='<i class="fa-solid fa-play"></i>';}
+</script>
+</body></html><!DOCTYPE html>
+<html lang="fr">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thème 4 - L'impact du numérique - CEJM</title>

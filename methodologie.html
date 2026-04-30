@@ -1,217 +1,249 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Méthodologie & Hacks - CEJM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root { --primary: #4f46e5; --primary-soft: #e0e7ff; --bg: #f5f7ff; --surface: #ffffff; --text: #111827; --border: #e5e7eb; --accent: #f97316; }
-        @media (prefers-color-scheme: dark) { :root { --bg: #0b1120; --surface: #111827; --text: #f8fafc; --border: #1f2937; --accent: #fb923c; --primary-soft: #1e1b4b;} }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: radial-gradient(circle at 0% 0%, rgba(79,70,229,0.12), transparent 32%), radial-gradient(circle at 100% 0%, rgba(249,115,22,0.1), transparent 34%), var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
-        .container { max-width: 1120px; margin: 0 auto; padding: 20px; }
-        .site-nav { display: flex; justify-content: space-between; align-items: center; gap: 18px; border-bottom: 1px solid var(--border); padding: 12px 0 16px; margin-bottom: 18px; position: sticky; top: 0; background: rgba(255,255,255,0.78); backdrop-filter: blur(12px); z-index: 100; }
-        .site-nav .brand { font-size: 1.15rem; color: var(--accent); font-weight: 800; text-decoration: none; }
-        .site-nav-links { display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
-        .site-nav-links a { text-decoration: none; color: var(--text); opacity: 0.85; font-weight: 600; }
-        .site-nav-links a:hover, .site-nav-links a:focus-visible { opacity: 1; color: var(--primary); }
-        
-        header.theme-header { margin-bottom: 40px; background: var(--surface); padding: 40px; border-radius: 24px; border: 1px solid var(--border); border-left: 8px solid var(--accent); box-shadow: 0 20px 40px -28px rgba(79,70,229,0.65); }
-        header.theme-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        header.theme-header p { font-size: 1.1rem; color: var(--text); opacity: 0.8; }
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Méthodologie & Hacks · CEJM Flash</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="cejm-shared.css">
+<style>
+:root { --tc: #fbbf24; --tc-soft: rgba(251,191,36,0.1); --tc-border: rgba(251,191,36,0.25); }
 
-        .tabs { display: flex; gap: 10px; margin-bottom: 26px; border-bottom: 2px solid var(--border); overflow-x: auto; scrollbar-width: none; background: var(--surface); padding: 8px; border-radius: 14px;}
-        .tab-btn { padding: 10px 16px; border: 1px solid transparent; background: none; color: var(--text); cursor: pointer; font-weight: 600; font-family: inherit; border-radius: 10px; white-space: nowrap; }
-        .tab-btn.active { color: #fff; border-color: var(--accent); background: linear-gradient(135deg, var(--accent), #fb923c); }
-        .tab-content { display: none; animation: fadeIn 0.4s; }
-        .tab-content.active { display: block; }
+/* Syllogisme steps */
+.syl-step {
+  display: flex; gap: 0; margin-bottom: 12px;
+  border-radius: 14px; overflow: hidden;
+  border: 1px solid var(--border2);
+}
+.syl-num {
+  background: linear-gradient(135deg, var(--tc), color-mix(in srgb, var(--tc) 70%, var(--pink)));
+  color: #0a0a00; font-weight: 800; font-size: 1.3rem;
+  padding: 20px 22px; display: flex; align-items: center;
+  font-family: var(--font-display); min-width: 64px; justify-content: center;
+}
+.syl-body { padding: 18px 20px; background: var(--surface2); flex: 1; }
+.syl-body h4 { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--tc); margin-bottom: 4px; }
+.syl-body p { color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
+.syl-body em { font-style: italic; color: rgba(240,240,250,0.55); }
 
-        .fiche-section { background: var(--surface); padding: 30px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 20px; box-shadow: 0 20px 40px -30px rgba(79,70,229,0.6); }
-        .fiche-section h3 { color: var(--accent); margin-bottom: 15px; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
-        
-        /* Styles Syllogisme */
-        .syllogisme-step { display: flex; margin-bottom: 20px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-        .step-number { background: var(--accent); color: #fff; font-weight: 800; font-size: 1.5rem; padding: 20px; display: flex; align-items: center; justify-content: center; min-width: 80px; }
-        .step-content { padding: 20px; }
-        .step-content h4 { margin-bottom: 5px; color: var(--text); font-size: 1.1rem; }
-        .step-content p { color: var(--text); opacity: 0.9; margin: 0; font-size: 0.95rem; }
-        .example-box { background: rgba(37, 99, 235, 0.1); border-left: 4px solid var(--primary); padding: 15px; border-radius: 0 8px 8px 0; margin-top: 10px; font-style: italic; }
+/* AEI */
+.aei-row {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 16px; background: var(--surface2);
+  border-radius: 12px; border: 1px solid var(--border2);
+  margin-bottom: 10px;
+}
+.aei-letter {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--tc), color-mix(in srgb, var(--tc) 70%, var(--pink)));
+  color: #0a0a00; font-weight: 800; font-size: 1.2rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); flex-shrink: 0;
+}
+.aei-content strong { color: var(--tc); font-weight: 700; display: block; margin-bottom: 3px; }
+.aei-content p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
 
-        /* Styles Accordéon pour les Hacks */
-        .accordion { background-color: var(--surface); color: var(--text); cursor: pointer; padding: 18px; width: 100%; border: 1px solid var(--border); text-align: left; outline: none; font-size: 1.1rem; font-weight: 700; transition: 0.3s; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .active-acc, .accordion:hover { background-color: var(--primary-soft); color: var(--primary); border-color: var(--primary); }
-        .panel { padding: 0 20px; background-color: var(--bg); display: none; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; animation: fadeIn 0.3s; }
-        .panel p { padding: 15px 0; }
-        .hack-badge { background: #10b981; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; display: inline-block;}
-
-        a:focus-visible, button:focus-visible { outline: 3px solid color-mix(in srgb, var(--primary) 60%, white); outline-offset: 2px; border-radius: 8px; }
-        @media (max-width: 768px) {
-            .site-nav { flex-direction: column; align-items: flex-start; }
-            .site-nav-links { justify-content: flex-start; }
-            .container { padding: 16px; }
-            header.theme-header { padding: 24px 20px; }
-            header.theme-header h1 { font-size: 2rem; }
-            .syllogisme-step { flex-direction: column; }
-            .step-number { min-width: auto; padding: 12px; }
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+/* Accordéon hacks */
+.acc-btn {
+  width: 100%; text-align: left; background: var(--surface2);
+  border: 1px solid var(--border2); color: var(--text);
+  padding: 16px 20px; border-radius: 12px; margin-bottom: 8px;
+  cursor: pointer; font-family: var(--font-body); font-size: 0.95rem;
+  font-weight: 600; display: flex; justify-content: space-between; align-items: center;
+  transition: all 0.2s;
+}
+.acc-btn:hover, .acc-btn.open { border-color: var(--tc); color: var(--tc); }
+.acc-btn.open { border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: 0; }
+.acc-panel {
+  display: none; background: var(--surface2);
+  border: 1px solid var(--tc-border); border-top: none;
+  border-radius: 0 0 12px 12px; padding: 16px 20px;
+  margin-bottom: 8px; color: var(--muted); font-size: 0.9rem; line-height: 1.75;
+}
+.acc-panel strong { color: var(--text); }
+.acc-panel em { color: rgba(240,240,250,0.5); font-style: italic; }
+.hack-badge {
+  display: inline-block; padding: 2px 10px; border-radius: 999px;
+  background: rgba(52,211,153,0.15); color: var(--green);
+  border: 1px solid rgba(52,211,153,0.3); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px;
+}
+.pattern-section-title {
+  font-family: var(--font-display); font-size: 0.85rem; font-weight: 700;
+  color: var(--tc); text-transform: uppercase; letter-spacing: 0.08em;
+  margin: 24px 0 12px; display: flex; align-items: center; gap: 8px;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <nav class="site-nav" aria-label="Navigation principale">
-            <a href="index.html" class="brand">CEJM Méthodo</a>
-            <div class="site-nav-links">
-                <a href="index.html"><i class="fa-solid fa-house"></i> Accueil</a>
-                <a href="quiz-blanc.html"><i class="fa-solid fa-trophy"></i> Quiz blanc</a>
-                <a href="#tabs"><i class="fa-solid fa-bolt"></i> Hacks</a>
-            </div>
-        </nav>
-        
-        <header class="theme-header">
-            <span style="color:var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Le secret de la réussite</span>
-            <h1>Méthodologie & Secrets de l'Épreuve</h1>
-            <p>La CEJM ne teste pas seulement tes connaissances. Découvre la méthode de rédaction (AEI, Syllogisme) et les "Patterns" issus de l'analyse des 10 dernières années d'annales.</p>
-        </header>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">CEJM<span>FLASH</span></a>
+  <div class="nav-links">
+    <a href="index.html"><i class="fa-solid fa-house fa-sm"></i> <span>Accueil</span></a>
+    <a href="quiz-blanc.html"><i class="fa-solid fa-trophy fa-sm"></i> <span>Quiz blanc</span></a>
+    <a href="index.html" class="nav-btn-flash"><i class="fa-solid fa-bolt fa-sm"></i> Flash</a>
+  </div>
+</nav>
 
-        <div class="tabs" id="tabs">
-            <button class="tab-btn active" onclick="openTab(event, 'epreuve')">L'Épreuve (4h)</button>
-            <button class="tab-btn" onclick="openTab(event, 'droit')">Méthode Juridique</button>
-            <button class="tab-btn" onclick="openTab(event, 'manag')">Méthode Éco/Manag</button>
-            <button class="tab-btn" onclick="openTab(event, 'hacks')" style="color:var(--primary); font-weight:800;"><i class="fa-solid fa-bolt"></i> Cheat-Sheet & Patterns</button>
-        </div>
+<div class="page-wrap container">
+  <div style="margin-bottom:20px;">
+    <nav class="breadcrumb"><a href="index.html"><i class="fa-solid fa-house fa-xs"></i> Accueil</a><span>/</span><span style="color:var(--tc);font-weight:600;">Méthodologie</span></nav>
+  </div>
 
-        <div id="epreuve" class="tab-content active">
-            <div class="fiche-section">
-                <h3><i class="fa-solid fa-stopwatch"></i> Format et Attentes</h3>
-                <p>L'épreuve de CEJM dure <strong>4 heures</strong> (Coefficient 3). Elle se base sur un dossier d'entreprise comprenant une présentation du contexte et plusieurs annexes.</p>
-                <ul style="margin-top: 15px; padding-left: 20px;">
-                    <li><strong>Le sujet est transversal :</strong> Tu ne trouveras pas "Partie Droit", "Partie Éco". Les questions mélangent les domaines.</li>
-                    <li><strong>La gestion du temps :</strong> Prends 45 minutes pour lire le contexte, survoler les annexes (avec surligneurs) et brouillonner les notions clés.</li>
-                    <li><strong>L'erreur fatale :</strong> Recopier le cours sans faire le lien avec l'entreprise du sujet. Chaque réponse doit être "ancrée" dans le contexte.</li>
-                </ul>
-            </div>
-        </div>
+  <header class="theme-header">
+    <span class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles fa-xs"></i> Le secret de la réussite</span>
+    <h1>Méthodologie & Hacks d'Épreuve</h1>
+    <p>La CEJM ne teste pas que tes connaissances. Maîtrise la méthode de rédaction (AEI, Syllogisme) et les patterns issus de 10 ans d'annales.</p>
+  </header>
 
-        <div id="droit" class="tab-content">
-            <div class="fiche-section">
-                <h3><i class="fa-solid fa-scale-balanced"></i> Le Syllogisme Juridique</h3>
-                <p>La méthode obligatoire pour répondre à toute question de qualification juridique. <strong>Astuce :</strong> La "Majeure" (la règle de droit) est très souvent cachée dans la dernière annexe du sujet !</p>
-                
-                <div class="syllogisme-step"><div class="step-number">1</div><div class="step-content"><h4>Qualification des faits</h4><p>Traduire l'histoire en vocabulaire juridique (ex: "L'employeur a procédé au licenciement de son salarié").</p></div></div>
-                <div class="syllogisme-step"><div class="step-number">2</div><div class="step-content"><h4>Le problème de droit</h4><p>Formuler la question de manière générale. <br><span style="font-style:italic;">Ex: À quelles conditions une clause de non-concurrence est-elle licite ?</span></p></div></div>
-                <div class="syllogisme-step"><div class="step-number">3</div><div class="step-content"><h4>La règle de droit (Majeure)</h4><p>Énoncer la règle (tirée des annexes). <br><span style="font-style:italic;">Ex: En principe, la règle énonce que... (Citer les conditions).</span></p></div></div>
-                <div class="syllogisme-step"><div class="step-number">4</div><div class="step-content"><h4>Application (Mineure) et Conclusion</h4><p>Confronter la règle aux faits de l'entreprise. <br><span style="font-style:italic;">Ex: En l'espèce, on constate dans l'annexe 2 que... En conclusion, la clause est nulle.</span></p></div></div>
-            </div>
-        </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'epreuve')"><i class="fa-solid fa-stopwatch fa-sm"></i> L'Épreuve (4h)</button>
+    <button class="tab-btn" onclick="openTab(event,'droit')"><i class="fa-solid fa-scale-balanced fa-sm"></i> Méthode Juridique</button>
+    <button class="tab-btn" onclick="openTab(event,'manag')"><i class="fa-solid fa-chart-line fa-sm"></i> Méthode Éco/Manag</button>
+    <button class="tab-btn" onclick="openTab(event,'hacks')" style="color:var(--tc); font-weight:700;"><i class="fa-solid fa-bolt fa-sm"></i> Cheat-Sheet & Patterns</button>
+  </div>
 
-        <div id="manag" class="tab-content">
-            <div class="fiche-section">
-                <h3><i class="fa-solid fa-chart-line"></i> La méthode A.E.I.</h3>
-                <p>En Économie et en Management, utilise la méthode <strong>A.E.I.</strong> pour structurer tes réponses de manière professionnelle.</p>
-                <ul style="margin-top: 15px; padding-left: 20px; list-style-type: none;">
-                    <li style="margin-bottom: 15px;"><strong>A comme AFFIRMER :</strong> Donne ta réponse directe (ex: "L'entreprise adopte une stratégie de domination par les coûts").</li>
-                    <li style="margin-bottom: 15px;"><strong>E comme EXPLIQUER :</strong> Définis le concept théorique (ex: "Cela consiste à proposer une offre à un prix inférieur...").</li>
-                    <li><strong>I comme ILLUSTRER :</strong> <strong>C'est là que sont les points !</strong> Prouve-le en citant l'annexe (ex: "Comme l'indique l'annexe 3, l'entreprise a réduit ses coûts de 15%...").</li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="hacks" class="tab-content">
-            <div class="fiche-section">
-                <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Analyse des Sujets Officiels</h3>
-                <p>Après analyse de 10 ans d'annales (Altho, Notarius, Teebike...), voici les "Patterns" : les questions qui tombent <strong>à chaque fois</strong> et comment y répondre parfaitement.</p>
-                
-                <h4 style="margin: 25px 0 10px; color: var(--primary);">Management (Tombe à 100%)</h4>
-                
-                <button class="accordion">Le Diagnostic Stratégique (SWOT / PESTEL) <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="panel">
-                    <p><span class="hack-badge">Technique de pro</span> <strong>Ne rédige pas, fais un tableau !</strong> Les correcteurs adorent. <br><br>
-                    <strong>Le piège à éviter :</strong> Ne confonds jamais l'interne et l'externe.<br>
-                    - <em>Forces/Faiblesses (Interne) :</em> Brevet détenu, savoir-faire des salariés, manque de trésorerie.<br>
-                    - <em>Opportunités/Menaces (Externe - PESTEL) :</em> Une nouvelle loi (Légal), une crise sanitaire, une nouvelle technologie sur le marché.</p>
-                </div>
-
-                <button class="accordion">Les Choix Stratégiques (M. Porter) <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="panel">
-                    <p><span class="hack-badge">Les Mots Magiques</span> Dès qu'on te demande de "Caractériser la stratégie de domaine", tu DOIS utiliser l'un des trois termes de Michael Porter :<br><br>
-                    1. <strong>Domination par les coûts :</strong> (ex: produire en grande série).<br>
-                    2. <strong>Différenciation :</strong> (ex: Teebike avec son innovation technologique, ou produit de luxe).<br>
-                    3. <strong>Focalisation :</strong> Marché de niche (ex: prothèses médicales très spécifiques).</p>
-                </div>
-
-                <h4 style="margin: 25px 0 10px; color: var(--primary);">Droit (Le plus discriminant)</h4>
-
-                <button class="accordion">L'analyse d'une Clause Contractuelle <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="panel">
-                    <p><span class="hack-badge">Le Pattern Infaillible</span> Si le sujet te demande "Vérifiez la validité de cette clause de non-concurrence" (très fréquent).<br><br>
-                    <strong>Le Hack :</strong> Pour être valide, elle doit respecter 4 conditions (Limitée dans le temps, Limitée dans l'espace, Indispensable à l'entreprise, <strong>Contrepartie financière</strong>). Le sujet fera TOUJOURS exprès d'oublier une condition (souvent la compensation financière). Repère-la pour dire que la clause est nulle.</p>
-                </div>
-
-                <button class="accordion">Modification du Contrat vs Conditions de travail <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="panel">
-                    <p><span class="hack-badge">Le Piège Classique</span> "L'employeur peut-il imposer ce changement ?" (ex: sujet Innov'SA).<br><br>
-                    - <strong>Modification du contrat (Élément essentiel) :</strong> Baisse du salaire, changement du temps de travail, mutation lointaine. -> <em>Accord du salarié OBLIGATOIRE.</em><br>
-                    - <strong>Changement des conditions (Pouvoir de direction) :</strong> Nouvelles tâches correspondant aux compétences, changement d'horaires dans la même journée. -> <em>Le salarié NE PEUT PAS refuser.</em></p>
-                </div>
-
-                <button class="accordion">Protection de l'Immatériel (INPI / CNIL) <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="panel">
-                    <p><span class="hack-badge">Où déposer ?</span> "Comment l'entreprise peut-elle se protéger ?" (ex: sujet Helite ou Tout en Perles).<br><br>
-                    - <strong>À l'INPI :</strong> Les Brevets (innovation technique, durée 20 ans) et les Marques (signe distinctif, 10 ans renouvelables).<br>
-                    - <strong>À la CNIL :</strong> Tout ce qui concerne la protection des données personnelles des clients (conformité au RGPD).</p>
-                </div>
-
-                <h4 style="margin: 25px 0 10px; color: var(--primary);">Économie</h4>
-
-                <button class="accordion">Les Externalités & Le Financement <i class="fa-solid fa-chevron-down"></i></button>
-                <div class="panel">
-                    <p><span class="hack-badge">La question Éco classique</span><br>
-                    <strong>1. Les Externalités :</strong> Cherche dans les annexes. Si l'usine fait du bruit = Externalité négative. Si elle crée de l'emploi local ou dépollue = Externalité positive.<br>
-                    <strong>2. Le Financement :</strong> Souvent, les sujets récents intègrent l'économie collaborative. Repère si l'entreprise utilise le <em>Crowdfunding</em> (financement participatif comme dans le sujet Biscuiterie Jeannette) ou des subventions d'État.</p>
-                </div>
-
-            </div>
-        </div>
+  <!-- ÉPREUVE -->
+  <div id="epreuve" class="tab-content active">
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-clock"></i> Format et attentes</h3>
+      <p>L'épreuve de CEJM dure <strong>4 heures</strong> (Coefficient 3). Elle s'appuie sur un dossier d'entreprise : contexte + plusieurs annexes (10–20 pages). Pas de découpage "Partie Droit / Partie Éco" : les questions sont <strong>transversales</strong>.</p>
+      <ul>
+        <li><strong>45 min de lecture active :</strong> lis le contexte, survole les annexes, surligne les notions clés et auteurs qui y sont cachés.</li>
+        <li><strong>Ancrage impératif :</strong> chaque réponse doit citer l'annexe utilisée ET la notion théorique. Sans ancrage = zéro sur le fond.</li>
+        <li><strong>L'erreur fatale :</strong> recopier le cours sans lien avec l'entreprise du sujet. Le correcteur attend une application, pas une récitation.</li>
+        <li><strong>Gestion du temps :</strong> alloue ~15 min par question de fond. Ne reste jamais bloqué plus de 5 min sur une notion — passe et reviens.</li>
+      </ul>
     </div>
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-triangle-exclamation"></i> Les pièges récurrents</h3>
+      <ul>
+        <li>Confondre <strong>diagnostic interne</strong> (Forces/Faiblesses) et <strong>externe</strong> (Opportunités/Menaces) dans le SWOT.</li>
+        <li>Oublier de citer l'<strong>annexe</strong> pour illustrer une notion (points perdus systématiquement).</li>
+        <li>Confondre <strong>modification du contrat</strong> (accord du salarié obligatoire) et <strong>changement des conditions</strong> (pouvoir de direction).</li>
+        <li>Oublier qu'une clause doit respecter les <strong>4 conditions cumulatives</strong> pour être valide (ex : clause de non-concurrence).</li>
+      </ul>
+    </div>
+  </div>
 
-    <script>
-        // Gestion des Onglets
-        function openTab(evt, tabName) {
-            let i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("active");
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
+  <!-- DROIT -->
+  <div id="droit" class="tab-content">
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-scale-balanced"></i> Le Syllogisme Juridique</h3>
+      <p>Méthode obligatoire pour toute question de qualification juridique. La <strong>Majeure</strong> (règle de droit) est souvent dans la dernière annexe.</p>
 
-        // Gestion de l'Accordéon (Hacks)
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function() {
-                this.classList.toggle("active-acc");
-                // Changer l'icône
-                let icon = this.querySelector('i');
-                if (this.classList.contains("active-acc")) {
-                    icon.classList.remove("fa-chevron-down");
-                    icon.classList.add("fa-chevron-up");
-                } else {
-                    icon.classList.remove("fa-chevron-up");
-                    icon.classList.add("fa-chevron-down");
-                }
-                
-                var panel = this.nextElementSibling;
-                if (panel.style.display === "block") {
-                    panel.style.display = "none";
-                } else {
-                    panel.style.display = "block";
-                }
-            });
-        }
-    </script>
+      <div class="syl-step">
+        <div class="syl-num">1</div>
+        <div class="syl-body"><h4>Qualification des faits</h4><p>Traduis l'histoire en vocabulaire juridique. <em>Ex : "L'employeur a procédé au licenciement de son salarié pour motif personnel."</em></p></div>
+      </div>
+      <div class="syl-step">
+        <div class="syl-num">2</div>
+        <div class="syl-body"><h4>Le problème de droit</h4><p>Formule la question de manière générale et abstraite. <em>Ex : "À quelles conditions une clause de non-concurrence est-elle valide ?"</em></p></div>
+      </div>
+      <div class="syl-step">
+        <div class="syl-num">3</div>
+        <div class="syl-body"><h4>La règle de droit (Majeure)</h4><p>Énonce la règle tirée des annexes ou du cours. <em>Ex : "En principe, la règle juridique prévoit que la clause doit être limitée dans le temps, l'espace, indispensable et assortie d'une contrepartie financière."</em></p></div>
+      </div>
+      <div class="syl-step">
+        <div class="syl-num">4</div>
+        <div class="syl-body"><h4>Application et Conclusion</h4><p>Confronte la règle aux faits. <em>Ex : "En l'espèce, l'annexe 2 révèle l'absence de contrepartie financière. En conséquence, la clause est nulle."</em></p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANAG / ÉCO -->
+  <div id="manag" class="tab-content">
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-chart-line"></i> La méthode A.E.I.</h3>
+      <p>En Économie et en Management, structure toutes tes réponses avec la méthode <strong>A.E.I.</strong> — simple, efficace, et très appréciée des correcteurs.</p>
+
+      <div class="aei-row">
+        <div class="aei-letter">A</div>
+        <div class="aei-content"><strong>AFFIRMER</strong><p>Donne ta réponse directe dès la première phrase. <em>Ex : "L'entreprise adopte une stratégie de domination par les coûts au sens de M. Porter."</em></p></div>
+      </div>
+      <div class="aei-row">
+        <div class="aei-letter">E</div>
+        <div class="aei-content"><strong>EXPLIQUER</strong><p>Définis le concept théorique. <em>Ex : "Cette stratégie consiste à proposer une offre à un prix inférieur aux concurrents en réduisant les coûts de production."</em></p></div>
+      </div>
+      <div class="aei-row">
+        <div class="aei-letter">I</div>
+        <div class="aei-content"><strong>ILLUSTRER <span style="font-size:0.75rem; color:var(--green); font-weight:700;">← C'est là que sont les points !</span></strong><p>Cite impérativement l'annexe. <em>Ex : "Comme l'indique l'annexe 3, l'entreprise a réduit ses coûts de 15% via la délocalisation de sa production en Pologne."</em></p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HACKS / CHEAT-SHEET -->
+  <div id="hacks" class="tab-content">
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Patterns issus de 10 ans d'annales</h3>
+      <p>Après analyse des sujets officiels (Altho, Notarius, Teebike, Helite…), voici les questions qui tombent <strong>à chaque session</strong> et comment les dominer.</p>
+
+      <p class="pattern-section-title"><i class="fa-solid fa-sitemap fa-sm"></i> Management</p>
+
+      <button class="acc-btn" onclick="toggleAcc(this)">Le Diagnostic Stratégique SWOT / PESTEL <i class="fa-solid fa-chevron-down fa-sm"></i></button>
+      <div class="acc-panel">
+        <span class="hack-badge">Technique pro</span>
+        <p><strong>Fais un tableau, pas un paragraphe !</strong> Les correcteurs adorent les tableaux bien structurés pour le SWOT.</p>
+        <p><strong>Le piège :</strong> ne jamais confondre interne et externe.<br>
+        — <em>Forces/Faiblesses (Interne) :</em> brevet détenu, savoir-faire, manque de trésorerie.<br>
+        — <em>Opportunités/Menaces (Externe — PESTEL) :</em> nouvelle loi, crise économique, technologie émergente.</p>
+      </div>
+
+      <button class="acc-btn" onclick="toggleAcc(this)">Les 3 Stratégies Génériques de Porter <i class="fa-solid fa-chevron-down fa-sm"></i></button>
+      <div class="acc-panel">
+        <span class="hack-badge">Mots magiques</span>
+        <p>Dès qu'on te demande de "caractériser la stratégie de domaine", utilise obligatoirement l'un des 3 termes de Porter :<br>
+        1. <strong>Domination par les coûts :</strong> production de masse, économies d'échelle.<br>
+        2. <strong>Différenciation :</strong> innovation, qualité supérieure, image de marque.<br>
+        3. <strong>Focalisation (niche) :</strong> marché très spécifique, offre hyper-spécialisée.</p>
+      </div>
+
+      <p class="pattern-section-title"><i class="fa-solid fa-gavel fa-sm"></i> Droit (le plus discriminant)</p>
+
+      <button class="acc-btn" onclick="toggleAcc(this)">La clause de non-concurrence <i class="fa-solid fa-chevron-down fa-sm"></i></button>
+      <div class="acc-panel">
+        <span class="hack-badge">Pattern infaillible</span>
+        <p>Pour être valide, elle doit respecter <strong>4 conditions cumulatives</strong> : limitée dans le <strong>temps</strong>, limitée dans l'<strong>espace</strong>, <strong>indispensable</strong> aux intérêts de l'entreprise, <strong>contrepartie financière</strong>.<br>
+        <em>Le sujet fera TOUJOURS manquer une condition (souvent la contrepartie). Repère-la pour conclure que la clause est nulle.</em></p>
+      </div>
+
+      <button class="acc-btn" onclick="toggleAcc(this)">Modification contrat vs conditions de travail <i class="fa-solid fa-chevron-down fa-sm"></i></button>
+      <div class="acc-panel">
+        <span class="hack-badge">Piège classique</span>
+        <p>— <strong>Modification d'un élément essentiel du contrat</strong> (salaire, poste, durée) → <em>Accord du salarié OBLIGATOIRE.</em><br>
+        — <strong>Changement des conditions de travail</strong> (nouveau bureau dans le même bâtiment, nouvelles tâches du même niveau) → <em>Pouvoir de direction : le salarié ne peut PAS refuser.</em></p>
+      </div>
+
+      <button class="acc-btn" onclick="toggleAcc(this)">Protection de l'immatériel : INPI / CNIL <i class="fa-solid fa-chevron-down fa-sm"></i></button>
+      <div class="acc-panel">
+        <span class="hack-badge">Où déposer ?</span>
+        <p>— <strong>INPI :</strong> brevets (innovation technique, 20 ans) et marques (signe distinctif, 10 ans renouvelables).<br>
+        — <strong>CNIL :</strong> tout ce qui concerne la protection des données personnelles (conformité RGPD, DPO).<br>
+        — <strong>Ne pas confondre :</strong> droits d'auteur (protection automatique, pas de dépôt) vs brevet (dépôt obligatoire à l'INPI).</p>
+      </div>
+
+      <p class="pattern-section-title"><i class="fa-solid fa-chart-pie fa-sm"></i> Économie</p>
+
+      <button class="acc-btn" onclick="toggleAcc(this)">Externalités et financement <i class="fa-solid fa-chevron-down fa-sm"></i></button>
+      <div class="acc-panel">
+        <span class="hack-badge">Question éco classique</span>
+        <p><strong>Externalités :</strong> cherche dans les annexes l'impact sur les tiers. Nuisance sonore = négative. Création d'emploi local = positive. Taxe pigouvienne = réponse de l'État.<br>
+        <strong>Financement :</strong> les sujets récents intègrent crowdfunding, love money, BPI. Repère si c'est du financement interne (autofinancement) ou externe (emprunt, capital, participatif).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openTab(e,id){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');e.currentTarget.classList.add('active');}
+function toggleAcc(btn) {
+  const panel = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  // close all
+  document.querySelectorAll('.acc-btn').forEach(b => { b.classList.remove('open'); b.querySelector('i').className='fa-solid fa-chevron-down fa-sm'; });
+  document.querySelectorAll('.acc-panel').forEach(p => p.style.display='none');
+  if (!isOpen) { btn.classList.add('open'); btn.querySelector('i').className='fa-solid fa-chevron-up fa-sm'; panel.style.display='block'; }
+}
+</script>
 </body>
 </html>

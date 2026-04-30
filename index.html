@@ -1,170 +1,1114 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CEJM Expert - Révisions BTS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root { --primary: #4f46e5; --secondary: #06b6d4; --primary-soft: #e0e7ff; --bg: #f5f7ff; --surface: #ffffff; --text: #111827; --text-light: #6b7280; --border: #e5e7eb; --card-shadow: 0 16px 30px -18px rgba(79,70,229,0.45); }
-        @media (prefers-color-scheme: dark) { :root { --bg: #0b1120; --surface: #111827; --text: #f9fafb; --text-light: #9ca3af; --border: #1f2937; --primary-soft:#1e1b4b; --card-shadow: 0 16px 30px -18px rgba(6,182,212,0.38);} }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: radial-gradient(circle at 0% 0%, rgba(79,70,229,0.12), transparent 32%), radial-gradient(circle at 100% 0%, rgba(6,182,212,0.12), transparent 30%), var(--bg); color: var(--text); transition: all 0.3s ease; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        nav { padding: 16px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 20px; position: sticky; top: 0; background: rgba(255,255,255,0.78); backdrop-filter: blur(12px); z-index: 100; }
-        .logo { font-weight: 800; font-size: 1.5rem; color: var(--primary); }
-        .nav-links { display: flex; gap: 16px; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--text-light); font-weight: 600; font-size: 0.95rem; }
-        .nav-links a:hover, .nav-links a:focus-visible { color: var(--primary); }
-        .hero { padding: 56px 0 24px; }
-        .hero-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 28px; align-items: stretch; }
-        .hero-main, .hero-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; box-shadow: var(--card-shadow); }
-        .hero-main { padding: 36px; }
-        .hero-panel { padding: 28px; display: grid; gap: 14px; align-content: start; }
-        .hero h1 { font-size: 3.2rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -1px; line-height: 1.05; }
-        .hero p { font-size: 1.1rem; color: var(--text-light); max-width: 700px; margin: 0 0 24px; }
-        .hero-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 22px; }
-        .kpi { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 12px; text-align: center; }
-        .kpi strong { font-size: 1.2rem; display: block; color: var(--primary); }
-        .kpi span { font-size: 0.8rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.04em; }
-        .search-container { max-width: 100%; margin: 0; position: relative; margin-bottom: 18px; }
-        .search-container input { width: 100%; padding: 18px 25px 18px 55px; border-radius: 999px; border: 2px solid var(--border); background: var(--surface); color: var(--text); font-size: 1rem; outline: none; transition: border-color 0.3s; box-shadow: var(--card-shadow); }
-        .search-container input:focus { border-color: var(--primary); }
-        .search-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-light); }
-        .btn-group { display: flex; flex-wrap: wrap; gap: 10px; }
-        .btn-action { display: inline-block; padding: 15px 26px; border-radius: 14px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: 0.2s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        .btn-methode { background: linear-gradient(135deg, #f59e0b, #f97316); color: white; }
-        .btn-quiz { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
-        .btn-action:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15); }
-        .themes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; padding: 50px 0; }
-        .theme-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; text-decoration: none; color: inherit; transition: all 0.3s; display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: var(--card-shadow); }
-        .theme-card:hover { transform: translateY(-10px); box-shadow: 0 26px 40px -25px rgba(79,70,229,0.5); border-color: var(--primary); }
-        .theme-card .icon-box { width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-soft), rgba(6,182,212,0.2)); color: var(--primary); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 25px; }
-        .theme-card h3 { font-size: 1.4rem; margin-bottom: 15px; font-weight: 700; }
-        .theme-card p { color: var(--text-light); font-size: 0.95rem; }
-        .theme-card .badge { position: absolute; top: 20px; right: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; padding: 4px 12px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 20px; }
-        .hero-panel h3 { font-size: 1rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.04em; }
-        .hero-panel ul { list-style: none; display: grid; gap: 10px; }
-        .hero-panel li { padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); font-size: 0.93rem; }
-        .hero-panel li i { color: var(--primary); margin-right: 8px; }
-        a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid color-mix(in srgb, var(--primary) 65%, white); outline-offset: 2px; border-radius: 8px; }
-        @media (max-width: 768px) {
-            nav { flex-wrap: wrap; justify-content: center; }
-            .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 12px; }
-            .hero { padding-top: 28px; }
-            .hero-layout { grid-template-columns: 1fr; }
-            .hero-main { padding: 22px; }
-            .hero h1 { font-size: 2.2rem; }
-            .hero-kpis { grid-template-columns: 1fr; }
-            .themes-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 480px) {
-            .container { padding: 0 14px; }
-            .btn-action { width: 100%; text-align: center; }
-            .theme-card { padding: 26px 22px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEJM FLASH — Révisions BTS</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --bg: #07070f;
+  --surface: #0e0e1e;
+  --surface2: #15152a;
+  --surface3: #1c1c35;
+  --border: rgba(168,85,247,0.15);
+  --border2: rgba(255,255,255,0.06);
+  --primary: #a855f7;
+  --primary-glow: rgba(168,85,247,0.3);
+  --pink: #f472b6;
+  --cyan: #22d3ee;
+  --yellow: #fbbf24;
+  --green: #34d399;
+  --red: #f87171;
+  --text: #f0f0fa;
+  --muted: rgba(240,240,250,0.45);
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* GRAIN OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.5;
+}
+
+.container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  padding: 0 24px;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(7,7,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.nav-logo span {
+  color: var(--primary);
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex; gap: 6px; align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none; color: var(--muted);
+  font-size: 0.88rem; font-weight: 500;
+  padding: 6px 14px; border-radius: 8px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+.nav-links a:hover { color: var(--text); border-color: var(--border2); }
+.nav-links .nav-feed-btn {
+  background: linear-gradient(135deg, var(--primary), var(--pink));
+  color: white !important;
+  font-weight: 700;
+  border-color: transparent !important;
+  cursor: pointer;
+}
+
+/* ─── HERO ─── */
+.hero {
+  padding: 110px 24px 60px;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--primary);
+  background: rgba(168,85,247,0.1);
+  border: 1px solid rgba(168,85,247,0.25);
+  padding: 5px 14px; border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 20px;
+}
+
+.hero h1 .line-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--pink) 50%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-sub {
+  color: var(--muted);
+  font-size: 1.05rem;
+  max-width: 480px;
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--pink));
+  color: white; font-weight: 700; font-size: 1rem;
+  text-decoration: none; cursor: pointer; border: none;
+  font-family: var(--font-body);
+  transition: all 0.25s;
+  box-shadow: 0 0 30px rgba(168,85,247,0.35);
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(168,85,247,0.55); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 12px;
+  background: transparent;
+  color: var(--text); font-weight: 600; font-size: 1rem;
+  text-decoration: none; cursor: pointer;
+  border: 1px solid var(--border2);
+  font-family: var(--font-body);
+  transition: all 0.25s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); }
+
+.hero-stats {
+  display: flex; gap: 28px;
+}
+.stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--text), var(--muted));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat span { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* Hero right panel */
+.hero-panel {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 24px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-panel::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(168,85,247,0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.panel-title {
+  font-family: var(--font-display);
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px;
+}
+
+.theme-mini-list { list-style: none; display: grid; gap: 8px; }
+.theme-mini-list li {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  text-decoration: none; color: var(--text);
+  font-size: 0.9rem; font-weight: 500;
+  transition: all 0.2s;
+}
+.theme-mini-list li:hover { border-color: var(--primary); background: rgba(168,85,247,0.08); }
+.theme-mini-list li .theme-num {
+  width: 28px; height: 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 800; font-family: var(--font-display);
+  flex-shrink: 0;
+}
+
+/* ─── SECTION HEADINGS ─── */
+.section { padding: 80px 24px; max-width: 1240px; margin: 0 auto; }
+.section-label {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--primary); margin-bottom: 10px;
+}
+.section-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 800; letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+.section-sub { color: var(--muted); font-size: 1rem; margin-bottom: 48px; max-width: 560px; }
+
+/* ─── THEMES GRID ─── */
+.themes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.theme-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 28px;
+  text-decoration: none; color: var(--text);
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.theme-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--card-color, rgba(168,85,247,0.05)), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+
+.theme-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--card-color, var(--primary));
+  box-shadow: 0 20px 60px -20px var(--primary-glow);
+}
+.theme-card:hover::after { opacity: 1; }
+
+.card-tag {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px; border-radius: 999px;
+  background: rgba(168,85,247,0.15);
+  color: var(--primary);
+  border: 1px solid rgba(168,85,247,0.25);
+  width: fit-content; margin-bottom: 16px;
+}
+
+.card-icon {
+  width: 48px; height: 48px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.theme-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem; font-weight: 700;
+  letter-spacing: -0.02em; margin-bottom: 8px;
+}
+
+.theme-card p {
+  color: var(--muted); font-size: 0.85rem; line-height: 1.5;
+  flex-grow: 1;
+}
+
+.card-arrow {
+  margin-top: 20px;
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.8rem; font-weight: 600; color: var(--primary);
+  opacity: 0; transition: opacity 0.2s;
+}
+.theme-card:hover .card-arrow { opacity: 1; }
+
+/* ─── FEED TEASER SECTION ─── */
+.feed-teaser {
+  padding: 80px 24px;
+  max-width: 1240px; margin: 0 auto;
+}
+
+.feed-teaser-inner {
+  background: linear-gradient(135deg, rgba(168,85,247,0.12), rgba(244,114,182,0.08));
+  border: 1px solid rgba(168,85,247,0.2);
+  border-radius: 28px;
+  padding: 60px 48px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.feed-teaser-inner::before {
+  content: '⚡';
+  position: absolute;
+  right: 120px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 12rem; opacity: 0.03;
+  pointer-events: none;
+}
+
+.feed-teaser h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 800; letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.feed-teaser p { color: var(--muted); font-size: 1rem; max-width: 540px; }
+
+/* ─── TIKTOK FEED OVERLAY ─── */
+#feed-overlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: #000;
+  display: none; flex-direction: column;
+}
+#feed-overlay.active { display: flex; }
+
+.feed-topbar {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+  padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+  pointer-events: none;
+}
+.feed-topbar > * { pointer-events: all; }
+
+.feed-title-bar {
+  display: flex; align-items: center; gap: 10px;
+}
+.feed-logo {
+  font-family: var(--font-display);
+  font-weight: 800; font-size: 1.1rem;
+  background: linear-gradient(135deg, var(--primary), var(--pink));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.filter-bar {
+  display: flex; gap: 6px; overflow-x: auto;
+  scrollbar-width: none; padding-bottom: 2px;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+
+.filter-btn {
+  padding: 5px 14px; border-radius: 999px;
+  font-size: 0.75rem; font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(0,0,0,0.5);
+  color: rgba(255,255,255,0.7);
+  cursor: pointer; white-space: nowrap;
+  backdrop-filter: blur(10px);
+  font-family: var(--font-body);
+  transition: all 0.2s;
+}
+.filter-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  box-shadow: 0 0 12px rgba(168,85,247,0.5);
+}
+
+.feed-close-btn {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white; cursor: pointer; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+}
+
+/* Cards container */
+.feed-track {
+  flex: 1;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.feed-track::-webkit-scrollbar { display: none; }
+
+.feed-card {
+  width: 100%; height: 100vh;
+  scroll-snap-align: start;
+  display: flex; align-items: center; justify-content: center;
+  padding: 80px 20px 40px;
+  position: relative;
+}
+
+.card-inner {
+  width: 100%; max-width: 540px;
+  position: relative;
+}
+
+/* TYPE: NOTION */
+.card-notion .card-inner {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 28px;
+  padding: 40px;
+  min-height: 340px;
+  display: flex; flex-direction: column;
+}
+.card-notion .card-inner::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(168,85,247,0.06), transparent);
+  pointer-events: none;
+}
+
+.card-type-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 999px; margin-bottom: 20px;
+  width: fit-content;
+}
+
+.badge-notion { background: rgba(168,85,247,0.15); color: var(--primary); border: 1px solid rgba(168,85,247,0.3); }
+.badge-quiz { background: rgba(34,211,238,0.12); color: var(--cyan); border: 1px solid rgba(34,211,238,0.3); }
+.badge-astuce { background: rgba(251,191,36,0.12); color: var(--yellow); border: 1px solid rgba(251,191,36,0.3); }
+.badge-auteur { background: rgba(244,114,182,0.12); color: var(--pink); border: 1px solid rgba(244,114,182,0.3); }
+
+.card-notion .notion-term {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 800; letter-spacing: -0.04em;
+  line-height: 1; margin-bottom: 20px;
+}
+
+.card-notion .notion-def {
+  color: var(--muted); font-size: 1rem; line-height: 1.7;
+  flex-grow: 1;
+}
+
+.card-notion .notion-def strong { color: var(--text); }
+
+.card-theme-tag {
+  margin-top: 24px;
+  font-size: 0.72rem; font-weight: 600;
+  color: var(--muted); display: flex; align-items: center; gap: 6px;
+}
+
+/* TYPE: QUIZ */
+.card-quiz .card-inner {
+  background: var(--surface);
+  border: 1px solid rgba(34,211,238,0.15);
+  border-radius: 28px;
+  padding: 36px;
+}
+.card-quiz .card-inner::before {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 150px; height: 150px;
+  background: radial-gradient(circle, rgba(34,211,238,0.1), transparent 70%);
+  pointer-events: none;
+}
+
+.quiz-question {
+  font-family: var(--font-display);
+  font-size: 1.2rem; font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px; line-height: 1.4;
+}
+
+.quiz-options { display: grid; gap: 10px; }
+
+.quiz-opt {
+  padding: 14px 18px;
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  background: var(--surface2);
+  color: var(--text); font-size: 0.95rem;
+  cursor: pointer; transition: all 0.2s;
+  font-family: var(--font-body);
+  text-align: left;
+}
+.quiz-opt:hover { border-color: var(--cyan); background: rgba(34,211,238,0.05); }
+.quiz-opt.correct { background: rgba(52,211,153,0.15) !important; border-color: var(--green) !important; color: var(--green) !important; }
+.quiz-opt.wrong { background: rgba(248,113,113,0.1) !important; border-color: var(--red) !important; color: var(--red) !important; }
+
+.quiz-feedback {
+  margin-top: 16px; font-weight: 600; font-size: 0.95rem;
+  min-height: 24px; text-align: center;
+}
+
+/* TYPE: ASTUCE */
+.card-astuce .card-inner {
+  background: linear-gradient(135deg, rgba(251,191,36,0.08), rgba(251,191,36,0.03));
+  border: 1px solid rgba(251,191,36,0.2);
+  border-radius: 28px;
+  padding: 40px;
+}
+
+.astuce-icon {
+  font-size: 2.5rem; margin-bottom: 16px; display: block;
+}
+
+.astuce-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem; font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--yellow); margin-bottom: 16px;
+}
+
+.astuce-body {
+  color: var(--muted); font-size: 1rem; line-height: 1.7;
+}
+.astuce-body strong { color: var(--text); }
+
+/* TYPE: AUTEUR */
+.card-auteur .card-inner {
+  background: linear-gradient(135deg, rgba(244,114,182,0.08), rgba(244,114,182,0.02));
+  border: 1px solid rgba(244,114,182,0.2);
+  border-radius: 28px;
+  padding: 40px;
+}
+
+.auteur-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 800; letter-spacing: -0.03em;
+  color: var(--pink); margin-bottom: 8px;
+}
+.auteur-dates { color: var(--muted); font-size: 0.85rem; margin-bottom: 20px; }
+.auteur-body { color: var(--muted); font-size: 1rem; line-height: 1.7; }
+.auteur-body strong { color: var(--text); }
+.auteur-key {
+  margin-top: 20px; padding: 14px 18px;
+  background: rgba(244,114,182,0.08);
+  border: 1px solid rgba(244,114,182,0.15);
+  border-radius: 12px;
+}
+.auteur-key .key-label {
+  font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--pink); font-weight: 700; margin-bottom: 4px;
+}
+
+/* Feed side actions */
+.feed-actions {
+  position: absolute; right: 20px; bottom: 80px;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+}
+.feed-action-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  cursor: pointer; background: none; border: none; color: white;
+  font-family: var(--font-body);
+}
+.feed-action-btn .fa-icon-wrap {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.feed-action-btn span { font-size: 0.7rem; color: rgba(255,255,255,0.7); }
+
+/* Feed progress */
+.feed-progress {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 5px;
+  pointer-events: none;
+  z-index: 10;
+}
+.progress-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.2); transition: all 0.3s;
+}
+.progress-dot.active { background: white; width: 18px; border-radius: 3px; }
+
+/* Feed card BG decorations */
+.feed-card-bg {
+  position: absolute; inset: 0;
+  pointer-events: none; overflow: hidden;
+  border-radius: 0;
+}
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border2);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; padding: 90px 20px 40px; }
+  .hero-panel { display: none; }
+  .themes-grid { grid-template-columns: repeat(2, 1fr); }
+  .feed-teaser-inner { grid-template-columns: 1fr; }
+  .feed-teaser-inner::before { display: none; }
+}
+@media (max-width: 600px) {
+  .themes-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 20px; }
+  nav { padding: 0 16px; }
+  .nav-links a:not(.nav-feed-btn) { display: none; }
+  .card-inner { max-width: 100%; }
+}
+
+/* Scroll reveal */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal { opacity: 0; }
+.reveal.visible { animation: fadeUp 0.6s ease forwards; }
+</style>
 </head>
 <body>
-    <nav class="container" aria-label="Navigation principale">
-        <div class="logo">CEJM<span style="color:var(--text)">EXPERT</span></div>
-        <div class="nav-links">
-            <a href="#themesGrid"><i class="fa-solid fa-layer-group"></i> Thèmes</a>
-            <a href="methodologie.html"><i class="fa-solid fa-wand-magic-sparkles"></i> Méthodo</a>
-            <a href="quiz-blanc.html"><i class="fa-solid fa-trophy"></i> Quiz blanc</a>
-        </div>
-    </nav>
 
-    <header class="hero container">
-        <div class="hero-layout">
-            <div class="hero-main">
-                <h1>Maîtrisez votre BTS.</h1>
-                <p>Une plateforme interactive pour réviser l'Économie, le Droit et le Management.</p>
-                <div class="hero-kpis">
-                    <div class="kpi"><strong>6</strong><span>Thèmes</span></div>
-                    <div class="kpi"><strong>60+</strong><span>Questions</span></div>
-                    <div class="kpi"><strong>4h</strong><span>Épreuve</span></div>
-                </div>
-                <div class="search-container">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="Rechercher une notion (ex: RSE), un thème...">
-                </div>
-                <div class="btn-group">
-                    <a href="methodologie.html" class="btn-action btn-methode"><i class="fa-solid fa-wand-magic-sparkles"></i> Hacks & Méthodologie</a>
-                    <a href="quiz-blanc.html" class="btn-action btn-quiz"><i class="fa-solid fa-trophy"></i> Lancer un Quiz Blanc</a>
-                </div>
-            </div>
-            <aside class="hero-panel">
-                <h3>Plan de révision conseillé</h3>
-                <ul>
-                    <li><i class="fa-solid fa-circle-check"></i>1 thème + son quiz chaque jour</li>
-                    <li><i class="fa-solid fa-circle-check"></i>1 quiz blanc tous les 2 jours</li>
-                    <li><i class="fa-solid fa-circle-check"></i>Relecture méthodo avant entraînement</li>
-                </ul>
-            </aside>
-        </div>
-    </header>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">CEJM<span>FLASH</span></div>
+  <div class="nav-links">
+    <a href="#themes"><i class="fa-solid fa-layer-group fa-sm"></i> Thèmes</a>
+    <a href="methodologie.html"><i class="fa-solid fa-wand-magic-sparkles fa-sm"></i> Méthodo</a>
+    <a href="quiz-blanc.html"><i class="fa-solid fa-trophy fa-sm"></i> Quiz blanc</a>
+    <a class="nav-feed-btn" onclick="openFeed('all')" href="#">
+      <i class="fa-solid fa-bolt fa-sm"></i> Mode Flash
+    </a>
+  </div>
+</nav>
 
-    <main class="container">
-        <h2 style="font-size: 1.7rem; margin-bottom: 12px;">Choisis ton thème de révision</h2>
-        <p style="color: var(--text-light); margin-bottom: 8px;">6 thèmes officiels, fiches synthèse, lexique et quiz interactif.</p>
-        <div class="themes-grid" id="themesGrid">
-            <a href="theme1.html" class="theme-card">
-                <span class="badge">Éco / Droit</span>
-                <div class="icon-box"><i class="fa-solid fa-earth-europe"></i></div>
-                <h3>L'intégration de l'entreprise</h3>
-                <p>Analyse des relations avec les acteurs, les marchés et le cadre contractuel sécurisant l'activité.</p>
-            </a>
-            <a href="theme2.html" class="theme-card">
-                <span class="badge">Éco / Droit</span>
-                <div class="icon-box"><i class="fa-solid fa-scale-balanced"></i></div>
-                <h3>Régulation économique</h3>
-                <p>Intervention de l'État, défaillances du marché et règles de la concurrence.</p>
-            </a>
-            <a href="theme3.html" class="theme-card">
-                <span class="badge">Manag / Droit</span>
-                <div class="icon-box"><i class="fa-solid fa-sitemap"></i></div>
-                <h3>Organisation de l'activité</h3>
-                <p>Optimisation de la production, structures juridiques et gestion des risques.</p>
-            </a>
-            <a href="theme4.html" class="theme-card">
-                <span class="badge">Manag / Droit</span>
-                <div class="icon-box"><i class="fa-solid fa-laptop-code"></i></div>
-                <h3>Impact du numérique</h3>
-                <p>Nouveaux business models, SI et protection des données (RGPD).</p>
-            </a>
-            <a href="theme5.html" class="theme-card">
-                <span class="badge">Manag / Éco</span>
-                <div class="icon-box"><i class="fa-solid fa-people-group"></i></div>
-                <h3>Mutations du travail</h3>
-                <p>Marché de l'emploi, motivation (Maslow, Herzberg) et droit négocié.</p>
-            </a>
-            <a href="theme6.html" class="theme-card">
-                <span class="badge">Management</span>
-                <div class="icon-box"><i class="fa-solid fa-chess-knight"></i></div>
-                <h3>Choix stratégiques</h3>
-                <p>Diagnostics internes/externes (SWOT, PESTEL) et options de croissance.</p>
-            </a>
-        </div>
-    </main>
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <i class="fa-solid fa-graduation-cap"></i>
+      BTS CEJM — Révisions Interactives
+    </div>
+    <h1>
+      Révisez<br>
+      <span class="line-gradient">plus vite.</span><br>
+      Réussissez.
+    </h1>
+    <p class="hero-sub">
+      6 thèmes, 40+ notions clés, quiz et le <strong>Mode Flash</strong> — apprenez comme sur TikTok, une notion à la fois.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="openFeed('all')">
+        <i class="fa-solid fa-bolt"></i> Lancer le Mode Flash
+      </button>
+      <a href="#themes" class="btn-ghost">
+        <i class="fa-solid fa-layer-group"></i> Voir les thèmes
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>6</strong><span>Thèmes</span></div>
+      <div class="stat"><strong>40+</strong><span>Notions</span></div>
+      <div class="stat"><strong>30+</strong><span>Quiz</span></div>
+      <div class="stat"><strong>4h</strong><span>Épreuve</span></div>
+    </div>
+  </div>
+  <aside class="hero-panel">
+    <p class="panel-title">Accès rapide aux thèmes</p>
+    <ul class="theme-mini-list">
+      <li><a href="theme1.html" style="display:contents; color:inherit; text-decoration:none; display:flex; align-items:center; gap:12px; width:100%;">
+        <span class="theme-num" style="background:rgba(168,85,247,0.15); color:#a855f7">T1</span>
+        L'intégration de l'entreprise
+        <i class="fa-solid fa-arrow-right fa-sm" style="margin-left:auto; color:var(--muted)"></i>
+      </a></li>
+      <li><a href="theme2.html" style="display:contents; color:inherit; text-decoration:none; display:flex; align-items:center; gap:12px; width:100%;">
+        <span class="theme-num" style="background:rgba(34,211,238,0.1); color:#22d3ee">T2</span>
+        Régulation économique
+        <i class="fa-solid fa-arrow-right fa-sm" style="margin-left:auto; color:var(--muted)"></i>
+      </a></li>
+      <li><a href="theme3.html" style="display:contents; color:inherit; text-decoration:none; display:flex; align-items:center; gap:12px; width:100%;">
+        <span class="theme-num" style="background:rgba(52,211,153,0.1); color:#34d399">T3</span>
+        Organisation de l'activité
+        <i class="fa-solid fa-arrow-right fa-sm" style="margin-left:auto; color:var(--muted)"></i>
+      </a></li>
+      <li><a href="theme4.html" style="display:contents; color:inherit; text-decoration:none; display:flex; align-items:center; gap:12px; width:100%;">
+        <span class="theme-num" style="background:rgba(251,191,36,0.1); color:#fbbf24">T4</span>
+        Impact du numérique
+        <i class="fa-solid fa-arrow-right fa-sm" style="margin-left:auto; color:var(--muted)"></i>
+      </a></li>
+      <li><a href="theme5.html" style="display:contents; color:inherit; text-decoration:none; display:flex; align-items:center; gap:12px; width:100%;">
+        <span class="theme-num" style="background:rgba(248,113,113,0.1); color:#f87171">T5</span>
+        Mutations du travail
+        <i class="fa-solid fa-arrow-right fa-sm" style="margin-left:auto; color:var(--muted)"></i>
+      </a></li>
+      <li><a href="theme6.html" style="display:contents; color:inherit; text-decoration:none; display:flex; align-items:center; gap:12px; width:100%;">
+        <span class="theme-num" style="background:rgba(244,114,182,0.1); color:#f472b6">T6</span>
+        Choix stratégiques
+        <i class="fa-solid fa-arrow-right fa-sm" style="margin-left:auto; color:var(--muted)"></i>
+      </a></li>
+    </ul>
+  </aside>
+</header>
 
-    <script>
-        // SCRIPT DE RECHERCHE FONCTIONNELLE
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const cards = document.querySelectorAll('.theme-card');
-            
-            cards.forEach(card => {
-                const text = card.innerText.toLowerCase();
-                // Si le texte de la carte contient ce qu'on tape, on l'affiche, sinon on la cache
-                if(text.includes(searchTerm)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    </script>
+<!-- FEED TEASER -->
+<div class="feed-teaser reveal">
+  <div class="feed-teaser-inner">
+    <div>
+      <div class="section-label" style="margin-bottom:10px">⚡ Nouveau</div>
+      <h2 class="section-h2">Le Mode Flash</h2>
+      <p style="color:var(--muted); font-size:1rem; margin-top:8px; max-width:500px;">
+        Scroll vertical snap-by-snap comme TikTok. Notions, quiz et astuces exam — une carte à la fois. Filtre par thème. Parfait pour réviser entre deux cours ou dans le métro.
+      </p>
+      <div style="display:flex; gap:10px; margin-top:24px; flex-wrap:wrap;">
+        <button class="btn-primary" onclick="openFeed('all')"><i class="fa-solid fa-bolt"></i> Tout réviser</button>
+        <button class="btn-ghost" onclick="openFeed('quiz')"><i class="fa-solid fa-circle-question"></i> Mode Quiz seul</button>
+      </div>
+    </div>
+    <div style="display:grid; gap:10px;">
+      <div onclick="openFeed('t1')" style="cursor:pointer; background:rgba(168,85,247,0.1); border:1px solid rgba(168,85,247,0.2); border-radius:12px; padding:12px 18px; font-size:0.85rem; font-weight:600; transition:all 0.2s;" onmouseover="this.style.background='rgba(168,85,247,0.2)'" onmouseout="this.style.background='rgba(168,85,247,0.1)'">
+        🔮 Thème 1 uniquement
+      </div>
+      <div onclick="openFeed('t2')" style="cursor:pointer; background:rgba(34,211,238,0.08); border:1px solid rgba(34,211,238,0.2); border-radius:12px; padding:12px 18px; font-size:0.85rem; font-weight:600; transition:all 0.2s;" onmouseover="this.style.background='rgba(34,211,238,0.15)'" onmouseout="this.style.background='rgba(34,211,238,0.08)'">
+        ⚖️ Thème 2 uniquement
+      </div>
+      <div onclick="openFeed('t6')" style="cursor:pointer; background:rgba(244,114,182,0.08); border:1px solid rgba(244,114,182,0.2); border-radius:12px; padding:12px 18px; font-size:0.85rem; font-weight:600; transition:all 0.2s;" onmouseover="this.style.background='rgba(244,114,182,0.15)'" onmouseout="this.style.background='rgba(244,114,182,0.08)'">
+        ♟️ Thème 6 uniquement
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THEMES SECTION -->
+<section id="themes" class="section">
+  <div class="section-label">Programme officiel</div>
+  <h2 class="section-h2 reveal">6 thèmes, tout le programme.</h2>
+  <p class="section-sub reveal">Fiches de synthèse, lexique des auteurs et quiz interactif pour chaque thème.</p>
+
+  <div class="themes-grid">
+    <a href="theme1.html" class="theme-card reveal" style="--card-color: #a855f7;">
+      <span class="card-tag">Éco / Droit</span>
+      <div class="card-icon">🌍</div>
+      <h3>L'intégration de l'entreprise</h3>
+      <p>Agents économiques, marchés, contrat, parties prenantes et finalités de l'entreprise.</p>
+      <div class="card-arrow"><i class="fa-solid fa-arrow-right fa-sm"></i> Accéder</div>
+    </a>
+    <a href="theme2.html" class="theme-card reveal" style="--card-color: #22d3ee;">
+      <span class="card-tag" style="background:rgba(34,211,238,0.12); color:var(--cyan); border-color:rgba(34,211,238,0.25)">Éco / Droit</span>
+      <div class="card-icon">⚖️</div>
+      <h3>Régulation économique</h3>
+      <p>Fonctions de l'État (Musgrave), droit de la concurrence, brevets, propriété industrielle.</p>
+      <div class="card-arrow" style="color:var(--cyan)"><i class="fa-solid fa-arrow-right fa-sm"></i> Accéder</div>
+    </a>
+    <a href="theme3.html" class="theme-card reveal" style="--card-color: #34d399;">
+      <span class="card-tag" style="background:rgba(52,211,153,0.12); color:var(--green); border-color:rgba(52,211,153,0.25)">Manag / Droit</span>
+      <div class="card-icon">🏗️</div>
+      <h3>Organisation de l'activité</h3>
+      <p>Coûts de transaction, structures juridiques, financement, Likert, responsabilité civile & pénale.</p>
+      <div class="card-arrow" style="color:var(--green)"><i class="fa-solid fa-arrow-right fa-sm"></i> Accéder</div>
+    </a>
+    <a href="theme4.html" class="theme-card reveal" style="--card-color: #fbbf24;">
+      <span class="card-tag" style="background:rgba(251,191,36,0.12); color:var(--yellow); border-color:rgba(251,191,36,0.25)">Manag / Droit</span>
+      <div class="card-icon">💻</div>
+      <h3>Impact du numérique</h3>
+      <p>Rifkin, coût marginal zéro, effet de réseau, RGPD, CNIL, PGI/ERP, cybersécurité.</p>
+      <div class="card-arrow" style="color:var(--yellow)"><i class="fa-solid fa-arrow-right fa-sm"></i> Accéder</div>
+    </a>
+    <a href="theme5.html" class="theme-card reveal" style="--card-color: #f87171;">
+      <span class="card-tag" style="background:rgba(248,113,113,0.12); color:var(--red); border-color:rgba(248,113,113,0.25)">Manag / Éco</span>
+      <div class="card-icon">👥</div>
+      <h3>Mutations du travail</h3>
+      <p>Capital humain (Becker), marché dual, Maslow, Herzberg, GEPP, droit négocié.</p>
+      <div class="card-arrow" style="color:var(--red)"><i class="fa-solid fa-arrow-right fa-sm"></i> Accéder</div>
+    </a>
+    <a href="theme6.html" class="theme-card reveal" style="--card-color: #f472b6;">
+      <span class="card-tag" style="background:rgba(244,114,182,0.12); color:var(--pink); border-color:rgba(244,114,182,0.25)">Management</span>
+      <div class="card-icon">♟️</div>
+      <h3>Choix stratégiques</h3>
+      <p>SWOT, PESTEL, 5 forces de Porter, Océan Bleu (Kim), Ansoff, modes de croissance.</p>
+      <div class="card-arrow" style="color:var(--pink)"><i class="fa-solid fa-arrow-right fa-sm"></i> Accéder</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>CEJM Flash — Plateforme de révisions BTS &nbsp;·&nbsp; Bonne chance pour l'épreuve ✨</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     TIKTOK FEED OVERLAY
+═══════════════════════════════════════════ -->
+<div id="feed-overlay">
+  <div class="feed-topbar">
+    <div class="feed-title-bar">
+      <span class="feed-logo">⚡ Mode Flash</span>
+    </div>
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all" onclick="setFilter('all', this)">Tout</button>
+      <button class="filter-btn" data-filter="notion" onclick="setFilter('notion', this)">📖 Notions</button>
+      <button class="filter-btn" data-filter="quiz" onclick="setFilter('quiz', this)">❓ Quiz</button>
+      <button class="filter-btn" data-filter="auteur" onclick="setFilter('auteur', this)">🧠 Auteurs</button>
+      <button class="filter-btn" data-filter="astuce" onclick="setFilter('astuce', this)">💡 Astuces</button>
+      <button class="filter-btn" data-filter="t1" onclick="setFilter('t1', this)">T1</button>
+      <button class="filter-btn" data-filter="t2" onclick="setFilter('t2', this)">T2</button>
+      <button class="filter-btn" data-filter="t3" onclick="setFilter('t3', this)">T3</button>
+      <button class="filter-btn" data-filter="t4" onclick="setFilter('t4', this)">T4</button>
+      <button class="filter-btn" data-filter="t5" onclick="setFilter('t5', this)">T5</button>
+      <button class="filter-btn" data-filter="t6" onclick="setFilter('t6', this)">T6</button>
+    </div>
+    <button class="feed-close-btn" onclick="closeFeed()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+
+  <div class="feed-track" id="feedTrack"></div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//  ALL CARDS DATA
+// ══════════════════════════════════════════
+const allCards = [
+  // ── THÈME 1 ──
+  { type:'notion', theme:'t1', term:'Rationalité limitée', def:'Concept de <strong>Herbert Simon</strong> : les décideurs ne peuvent pas traiter toute l\'information disponible. Ils prennent des décisions "satisfaisantes" et non pas "optimales". À opposer à l\'homo economicus rationnel des néoclassiques.', color:'#a855f7' },
+  { type:'auteur', theme:'t1', name:'J. Schumpeter', dates:'1883–1950', body:'Économiste autrichien, père de la <strong>théorie de la destruction créatrice</strong>. L\'entrepreneur est le moteur du capitalisme : il innove, détruit l\'ordre ancien et crée de nouvelles valeurs.', key:'Concept clé : "La destruction créatrice" et la figure de l\'entrepreneur innovateur.', color:'#a855f7' },
+  { type:'notion', theme:'t1', term:'Externalité', def:'Conséquence de l\'activité d\'un agent économique sur un tiers, <strong>sans compensation financière</strong>. Peut être positive (une entreprise qui forme des salariés profite à la société) ou négative (pollution d\'une usine).', color:'#a855f7' },
+  { type:'notion', theme:'t1', term:'RSE', def:'<strong>Responsabilité Sociétale des Entreprises</strong> : démarche volontaire d\'intégration des préoccupations sociales, environnementales et économiques. S\'adresse aux parties prenantes au sens de <strong>R.E. Freeman</strong> (stakeholders).', color:'#a855f7' },
+  { type:'notion', theme:'t1', term:'Validité du contrat', def:'Un contrat est valide s\'il réunit 3 conditions : <strong>1) Consentement</strong> libre et éclairé (sans erreur, dol ni violence), <strong>2) Capacité juridique</strong> des parties, <strong>3) Contenu licite et certain</strong>. La violation d\'une condition entraîne la nullité.', color:'#a855f7' },
+  { type:'quiz', theme:'t1', q:'Quelle notion de Herbert Simon explique l\'impossibilité pour un décideur de traiter toute l\'information ?', options:['La rationalité limitée','La destruction créatrice','L\'asymétrie d\'information'], correct:0 },
+  { type:'quiz', theme:'t1', q:'Quel auteur associe l\'entrepreneur à l\'innovation et à la "destruction créatrice" ?', options:['R.E. Freeman','J. Schumpeter','H. Mintzberg'], correct:1 },
+  { type:'quiz', theme:'t1', q:'Un consentement vicié par un mensonge volontaire correspond à quel vice ?', options:['L\'erreur','Le dol','La violence'], correct:1 },
+  { type:'astuce', theme:'t1', icon:'🎯', title:'Méthodo T1 — Piège courant', body:'<strong>Attention</strong> : ne pas confondre "logique entrepreneuriale" (Simon, prise de risque, innovation) et "logique managériale" (Mintzberg, optimisation, pérennisation). L\'exam adore cette distinction !', color:'#a855f7' },
+
+  // ── THÈME 2 ──
+  { type:'auteur', theme:'t2', name:'R. Musgrave', dates:'1910–2007', body:'Économiste américain, il théorise les <strong>3 fonctions de l\'État</strong> en économie : Allocation des ressources (biens publics), Redistribution des revenus, Régulation conjoncturelle.', key:'Moyen mémo : "ARR" (Allocation, Redistribution, Régulation).', color:'#22d3ee' },
+  { type:'notion', theme:'t2', term:'Politique conjoncturelle', def:'Action de l\'État <strong>à court terme</strong> pour réguler l\'économie. Peut être expansive (relance keynésienne) ou restrictive (rigueur). Les outils sont : la politique budgétaire (État) et la politique monétaire (BCE pour la zone euro).', color:'#22d3ee' },
+  { type:'notion', theme:'t2', term:'Brevet d\'invention', def:'Titre de propriété industrielle déposé à l\'<strong>INPI</strong>, protégeant une innovation technique pour <strong>20 ans</strong>. Donne un monopole temporaire pour rentabiliser la R&D. Objectif : inciter à innover malgré le coût.', color:'#22d3ee' },
+  { type:'notion', theme:'t2', term:'Entente illicite', def:'Accord secret entre entreprises concurrentes visant à fixer les prix, partager des marchés ou limiter la production (= <strong>cartel</strong>). Interdit et sanctionné par l\'<strong>Autorité de la Concurrence</strong> en France et la Commission Européenne au niveau UE.', color:'#22d3ee' },
+  { type:'auteur', theme:'t2', name:'J.M. Keynes', dates:'1883–1946', body:'Père de la <strong>macroéconomie moderne</strong>. Prône l\'intervention active de l\'État en cas de récession : relancer la demande via les dépenses publiques. S\'oppose aux libéraux classiques qui croient à l\'auto-régulation des marchés.', key:'Concept clé : "Relance par la demande" et le multiplicateur keynésien.', color:'#22d3ee' },
+  { type:'quiz', theme:'t2', q:'Selon Musgrave, quelle fonction de l\'État vise à réduire les inégalités de revenus ?', options:['L\'allocation','La redistribution','La régulation'], correct:1 },
+  { type:'quiz', theme:'t2', q:'La BCE contrôle l\'inflation en modifiant ses :?', options:['Dépenses publiques','Taux d\'intérêt directeurs','Règles de la concurrence'], correct:1 },
+  { type:'quiz', theme:'t2', q:'Sanctionner un cartel fixant les prix en secret relève de la lutte contre :', options:['L\'abus de position dominante','Les ententes illicites','La concurrence déloyale'], correct:1 },
+
+  // ── THÈME 3 ──
+  { type:'notion', theme:'t3', term:'Théorie des coûts de transaction', def:'Développée par <strong>Coase et Williamson</strong> : l\'entreprise choisit entre "faire" (intégration verticale) et "faire faire" (externalisation/impartition) en comparant les coûts de transaction du marché avec les coûts d\'organisation interne.', color:'#34d399' },
+  { type:'notion', theme:'t3', term:'Obligation de moyens / résultat', def:'<strong>Obligation de moyens</strong> : le débiteur doit s\'engager avec diligence sans garantir le résultat (ex: médecin). <strong>Obligation de résultat</strong> : le débiteur garantit le résultat précis (ex: transporteur qui livre un colis intact). La distinction détermine la preuve en cas de litige.', color:'#34d399' },
+  { type:'auteur', theme:'t3', name:'Rensis Likert', dates:'1903–1981', body:'Psychologue américain, il identifie <strong>4 styles de management</strong> : Autoritaire exploiteur, Paternaliste bienveillant, Consultatif, et Participatif par groupe. Il démontre empiriquement que le style <strong>participatif</strong> est le plus performant à long terme.', key:'Mnémotechnique : APCP (Autoritaire → Participatif, toujours dans cet ordre).', color:'#34d399' },
+  { type:'notion', theme:'t3', term:'Responsabilité pénale', def:'Mise en cause d\'une personne pour une <strong>infraction pénale</strong> (contravention, délit, crime). Vise à <strong>punir</strong> (≠ responsabilité civile qui vise à réparer). Exige une infraction + imputabilité. Peut concerner une personne morale (entreprise) ou physique.', color:'#34d399' },
+  { type:'quiz', theme:'t3', q:'La théorie de Williamson aide l\'entreprise à choisir entre :', options:['Emprunter ou autofinancer','Faire ou faire faire','Grandir ou fusionner'], correct:1 },
+  { type:'quiz', theme:'t3', q:'Un médecin qui soigne son patient est soumis à une :', options:['Obligation de résultat','Obligation de moyens','Obligation contractuelle absolue'], correct:1 },
+  { type:'quiz', theme:'t3', q:'Quel style de management (Likert) favorise le plus l\'implication des salariés ?', options:['Paternaliste','Consultatif','Participatif'], correct:2 },
+  { type:'astuce', theme:'t3', icon:'📝', title:'Structures juridiques — Astuce', body:'Pour l\'exam, retenez le <strong>tableau de comparaison</strong> : EI (pas de personnalité morale distincte, patrimoine confondu) vs SARL/SAS (responsabilité limitée aux apports). La SA est pour les grandes entreprises cotées (7 actionnaires min).', color:'#34d399' },
+
+  // ── THÈME 4 ──
+  { type:'auteur', theme:'t4', name:'J. Rifkin', dates:'Né en 1945', body:'Économiste américain, auteur du <strong>"Coût marginal zéro"</strong> (2014). Sa thèse : dans l\'économie numérique, reproduire une unité supplémentaire (film, logiciel) tend à coûter zéro. Cela remet en cause le capitalisme traditionnel et l\'économie de la propriété.', key:'Concept clé : économie de la fonctionnalité (usage > propriété).', color:'#fbbf24' },
+  { type:'notion', theme:'t4', term:'Effet de réseau', def:'Phénomène où <strong>la valeur d\'un service augmente avec le nombre d\'utilisateurs</strong>. Exemple : WhatsApp n\'a de valeur que si vos contacts l\'utilisent. Crée des positions monopolistiques naturelles (GAFAM) très difficiles à contester.', color:'#fbbf24' },
+  { type:'notion', theme:'t4', term:'RGPD', def:'<strong>Règlement Général sur la Protection des Données</strong> (2018, UE). Impose : recueil du consentement explicite, droit à l\'oubli, droit d\'accès, nomination d\'un <strong>DPO</strong> (Data Protection Officer). Contrôlé en France par la <strong>CNIL</strong>. Sanctions jusqu\'à 4% du CA mondial.', color:'#fbbf24' },
+  { type:'notion', theme:'t4', term:'Freemium', def:'Modèle économique associant un <strong>service de base gratuit</strong> (free) à des fonctionnalités avancées payantes (premium). Exemples : Spotify, LinkedIn, Canva. L\'objectif est d\'acquérir massivement des utilisateurs puis de monétiser une fraction d\'entre eux.', color:'#fbbf24' },
+  { type:'notion', theme:'t4', term:'Yield Management', def:'Technique de <strong>tarification dynamique</strong> : le prix varie en temps réel selon l\'offre et la demande. Utilisée par les hôtels, compagnies aériennes, SNCF. Maximise le revenu par unité de capacité disponible (chambre, siège).', color:'#fbbf24' },
+  { type:'quiz', theme:'t4', q:'Qu\'est-ce qu\'une externalité de réseau (effet de réseau) ?', options:['Une faille de sécurité','La valeur augmente avec les utilisateurs','Une sous-traitance du réseau'], correct:1 },
+  { type:'quiz', theme:'t4', q:'Quel organisme français sanctionne les violations du RGPD ?', options:['La CNIL','L\'ARCEP','L\'INPI'], correct:0 },
+  { type:'quiz', theme:'t4', q:'Vendre un même billet d\'avion à des prix différents selon la date d\'achat, c\'est du :', options:['Freemium','Yield Management','Crowdfunding'], correct:1 },
+  { type:'astuce', theme:'t4', icon:'🔐', title:'RGPD à l\'exam — Piège', body:'Ne pas confondre <strong>CNIL</strong> (France) et <strong>EDPB</strong> (Comité Européen de Protection des Données, niveau UE). La CNIL est l\'autorité française de contrôle. En cas de violation, la CNIL peut infliger une amende jusqu\'à 20 M€ ou 4% du CA mondial.', color:'#fbbf24' },
+
+  // ── THÈME 5 ──
+  { type:'auteur', theme:'t5', name:'A. Maslow', dates:'1908–1970', body:'Psychologue américain, célèbre pour sa <strong>pyramide des besoins</strong> (1943) : Physiologiques → Sécurité → Appartenance → Estime → Accomplissement. Un besoin supérieur ne motive que si les besoins inférieurs sont satisfaits.', key:'Limite : modèle trop hiérarchique, ne correspond pas à toutes les cultures.', color:'#f87171' },
+  { type:'auteur', theme:'t5', name:'F. Herzberg', dates:'1923–2000', body:'Psychologue américain, théorie <strong>bifactorielle</strong> de la motivation au travail. Distingue les <strong>facteurs d\'hygiène</strong> (salaire, conditions, qui évitent l\'insatisfaction) des <strong>facteurs moteurs</strong> (responsabilités, reconnaissance, qui créent la vraie motivation).', key:'Mnémotechnique : HYGIÈNE = évite l\'insatisfaction / MOTIVATION = créé satisfaction.', color:'#f87171' },
+  { type:'notion', theme:'t5', term:'Droit négocié', def:'Ensemble des règles sociales issues de <strong>négociations collectives</strong> entre représentants des employeurs et syndicats de salariés. Le Code du travail pose un plancher légal, les accords de branche et d\'entreprise peuvent l\'améliorer (principe de faveur) ou, dans certains domaines, y déroger.', color:'#f87171' },
+  { type:'notion', theme:'t5', term:'GEPP', def:'<strong>Gestion des Emplois et des Parcours Professionnels</strong> (ex-GPEC). Démarche préventive permettant d\'anticiper les besoins futurs en compétences, d\'accompagner les évolutions et de développer l\'employabilité des salariés. Obligatoire dans les entreprises de +300 salariés.', color:'#f87171' },
+  { type:'quiz', theme:'t5', q:'Selon Herzberg, le salaire est un facteur :', options:['Moteur de motivation','D\'hygiène (évite l\'insatisfaction)','Inutile pour la motivation'], correct:1 },
+  { type:'quiz', theme:'t5', q:'La "Théorie du capital humain" (Gary Becker) indique que la formation est :', options:['Un coût à minimiser','Un investissement qui accroît la productivité','Une obligation légale'], correct:1 },
+  { type:'quiz', theme:'t5', q:'Une politique de l\'emploi consistant à indemniser le chômage est une politique :', options:['Passive','Active','Structurelle'], correct:0 },
+
+  // ── THÈME 6 ──
+  { type:'notion', theme:'t6', term:'Analyse SWOT', def:'Outil de <strong>diagnostic stratégique global</strong> (modèle LCAG / Harvard). Forces (Strengths) et Faiblesses (Weaknesses) = diagnostic interne. Opportunités (Opportunities) et Menaces (Threats) = diagnostic externe (via PESTEL et 5 forces de Porter).', color:'#f472b6' },
+  { type:'auteur', theme:'t6', name:'Michael Porter', dates:'Né en 1947', body:'Économiste américain. Deux contributions majeures : les <strong>5 forces concurrentielles</strong> (analyse du micro-environnement) et la <strong>chaîne de valeur</strong>. Définit 3 stratégies génériques : domination par les coûts, différenciation, focalisation.', key:'Les 5 forces : concurrents directs, clients, fournisseurs, entrants potentiels, substituts.', color:'#f472b6' },
+  { type:'notion', theme:'t6', term:'Stratégie Océan Bleu', def:'Concept de <strong>Kim & Mauborgne</strong> (2005). Consiste à créer un <strong>espace de marché vierge</strong> sans concurrence directe, en remettant en cause les règles du jeu de l\'industrie. Opposé à l\'"océan rouge" (concurrence féroce sur un marché existant). Ex: Cirque du Soleil.', color:'#f472b6' },
+  { type:'notion', theme:'t6', term:'Matrice d\'Ansoff', def:'Outil de <strong>planification de la croissance</strong> (4 cases) : Pénétration de marché (produit existant / marché existant), Développement de marché, Développement de produit, Diversification (nouveau produit / nouveau marché = la plus risquée).', color:'#f472b6' },
+  { type:'quiz', theme:'t6', q:'Quel outil analyse l\'intensité concurrentielle du micro-environnement ?', options:['Le modèle PESTEL','Les 5 forces de Porter','La matrice BCG'], correct:1 },
+  { type:'quiz', theme:'t6', q:'La stratégie "Océan Bleu" consiste à :', options:['S\'attaquer frontalement au leader','Réduire les coûts à l\'extrême','Créer un marché sans concurrence'], correct:2 },
+  { type:'quiz', theme:'t6', q:'Une entreprise qui rachète un concurrent réalise une croissance :', options:['Interne','Externe','Conjointe (alliance)'], correct:1 },
+
+  // ── ASTUCES GÉNÉRALES ──
+  { type:'astuce', theme:'t1', icon:'📋', title:'Intro à l\'épreuve — Méthodo', body:'L\'épreuve CEJM dure <strong>4h</strong>. Elle comporte une <strong>analyse de cas</strong> (document de 15–20 pages). Attention : chaque réponse doit mentionner l\'annexe utilisée + la notion théorique. "Selon l\'annexe X... on observe que... ce qui illustre la notion de... (auteur)."', color:'#a855f7' },
+  { type:'astuce', theme:'t3', icon:'⚡', title:'Auteurs à ne jamais oublier', body:'Pour l\'exam, 5 auteurs sont incontournables : <strong>Simon</strong> (rationalité limitée), <strong>Schumpeter</strong> (destruction créatrice), <strong>Porter</strong> (5 forces, chaîne de valeur), <strong>Herzberg</strong> (motivation bifactorielle), <strong>Coase/Williamson</strong> (coûts de transaction).', color:'#34d399' },
+  { type:'astuce', theme:'t6', icon:'🚀', title:'Stratégie — Mémo rapide', body:'<strong>PESTEL</strong> = macro (Politique, Éco, Socio, Tech, Éco, Légal) → <strong>5 forces Porter</strong> = micro → <strong>SWOT</strong> = synthèse → <strong>Choix stratégique</strong>. Toujours dans cet ordre dans un cas pratique ! Ne jamais oublier d\'identifier le DAS concerné.', color:'#f472b6' },
+];
+
+// ══════════════════════════════════════════
+//  FEED ENGINE
+// ══════════════════════════════════════════
+let currentFilter = 'all';
+let currentQuizAnswered = new Set();
+
+function openFeed(filter) {
+  currentFilter = filter;
+  document.getElementById('feed-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  // Sync filter buttons
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.filter === filter);
+  });
+  renderFeed();
+  // Scroll to top
+  setTimeout(() => { document.getElementById('feedTrack').scrollTop = 0; }, 50);
+}
+
+function closeFeed() {
+  document.getElementById('feed-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentQuizAnswered = new Set();
+  renderFeed();
+  setTimeout(() => { document.getElementById('feedTrack').scrollTop = 0; }, 50);
+}
+
+function getFilteredCards() {
+  if (currentFilter === 'all') return allCards;
+  if (['notion','quiz','astuce','auteur'].includes(currentFilter)) return allCards.filter(c => c.type === currentFilter);
+  return allCards.filter(c => c.theme === currentFilter);
+}
+
+function shuffleCard(card) {
+  if (card.type !== 'quiz') return card;
+  const c = {...card, options: [...card.options]};
+  const pairs = c.options.map((o, i) => ({o, correct: i === c.correct}));
+  pairs.sort(() => Math.random() - 0.5);
+  c.options = pairs.map(p => p.o);
+  c.correct = pairs.findIndex(p => p.correct);
+  return c;
+}
+
+let currentCards = [];
+
+function renderFeed() {
+  const track = document.getElementById('feedTrack');
+  const raw = [...getFilteredCards()].sort(() => Math.random() - 0.5);
+  currentCards = raw.map(shuffleCard);
+  currentQuizAnswered = new Set();
+  track.innerHTML = currentCards.map((card, i) => buildCard(card, i)).join('');
+}
+
+function buildCard(card, i) {
+  const bgs = getBg(card.theme);
+  const bgHtml = `<div class="feed-card-bg">
+    <div class="bg-blob" style="width:300px;height:300px;background:${bgs[0]};top:-80px;left:-80px;"></div>
+    <div class="bg-blob" style="width:250px;height:250px;background:${bgs[1]};bottom:-60px;right:-60px;"></div>
+  </div>`;
+
+  if (card.type === 'notion') return `
+    <div class="feed-card card-notion" data-index="${i}">
+      ${bgHtml}
+      <div class="card-inner">
+        <span class="card-type-badge badge-notion"><i class="fa-solid fa-book-open fa-sm"></i> Notion</span>
+        <div class="notion-term">${card.term}</div>
+        <div class="notion-def">${card.def}</div>
+        <div class="card-theme-tag">
+          <span style="width:8px;height:8px;border-radius:50%;background:${card.color};display:inline-block;"></span>
+          ${themeLabel(card.theme)}
+        </div>
+      </div>
+      ${sideActions(i)}
+    </div>`;
+
+  if (card.type === 'auteur') return `
+    <div class="feed-card card-auteur" data-index="${i}">
+      ${bgHtml}
+      <div class="card-inner">
+        <span class="card-type-badge badge-auteur"><i class="fa-solid fa-user-graduate fa-sm"></i> Auteur</span>
+        <div class="auteur-name">${card.name}</div>
+        <div class="auteur-dates">${card.dates}</div>
+        <div class="auteur-body">${card.body}</div>
+        <div class="auteur-key">
+          <div class="key-label">À retenir</div>
+          <div style="font-size:0.9rem; color:var(--muted)">${card.key}</div>
+        </div>
+      </div>
+      ${sideActions(i)}
+    </div>`;
+
+  if (card.type === 'quiz') return `
+    <div class="feed-card card-quiz" data-index="${i}">
+      ${bgHtml}
+      <div class="card-inner">
+        <span class="card-type-badge badge-quiz"><i class="fa-solid fa-circle-question fa-sm"></i> Quiz</span>
+        <div class="quiz-question">${card.q}</div>
+        <div class="quiz-options">
+          ${card.options.map((opt, j) => `
+            <button class="quiz-opt" onclick="answerQuiz(${i}, ${j}, this)" data-quiz="${i}">
+              ${String.fromCharCode(65+j)}. ${opt}
+            </button>`).join('')}
+        </div>
+        <div class="quiz-feedback" id="qf-${i}"></div>
+      </div>
+      ${sideActions(i)}
+    </div>`;
+
+  if (card.type === 'astuce') return `
+    <div class="feed-card card-astuce" data-index="${i}">
+      ${bgHtml}
+      <div class="card-inner">
+        <span class="card-type-badge badge-astuce"><i class="fa-solid fa-lightbulb fa-sm"></i> Astuce Exam</span>
+        <span class="astuce-icon">${card.icon}</span>
+        <div class="astuce-title">${card.title}</div>
+        <div class="astuce-body">${card.body}</div>
+      </div>
+      ${sideActions(i)}
+    </div>`;
+
+  return '';
+}
+
+function sideActions(i) {
+  return `<div class="feed-actions">
+    <button class="feed-action-btn" onclick="goNext(${i})">
+      <div class="fa-icon-wrap"><i class="fa-solid fa-arrow-down"></i></div>
+      <span>Suivant</span>
+    </button>
+  </div>`;
+}
+
+function getBg(theme) {
+  const map = { t1:['#a855f7','#7c3aed'], t2:['#22d3ee','#0891b2'], t3:['#34d399','#059669'], t4:['#fbbf24','#d97706'], t5:['#f87171','#ef4444'], t6:['#f472b6','#ec4899'] };
+  return map[theme] || ['#a855f7','#7c3aed'];
+}
+
+function themeLabel(t) {
+  const m = { t1:'Thème 1 — Intégration', t2:'Thème 2 — Régulation', t3:'Thème 3 — Organisation', t4:'Thème 4 — Numérique', t5:'Thème 5 — Travail', t6:'Thème 6 — Stratégie' };
+  return m[t] || t;
+}
+
+function answerQuiz(cardIndex, answerIndex, btn) {
+  if (currentQuizAnswered.has(cardIndex)) return;
+  currentQuizAnswered.add(cardIndex);
+
+  const card = currentCards[cardIndex];
+  const opts = document.querySelectorAll(`[data-quiz="${cardIndex}"]`);
+  
+  opts.forEach(b => b.disabled = true);
+  
+  const fb = document.getElementById(`qf-${cardIndex}`);
+  if (answerIndex === card.correct) {
+    btn.classList.add('correct');
+    fb.innerHTML = `<span style="color:var(--green)">✅ Bonne réponse !</span>`;
+  } else {
+    btn.classList.add('wrong');
+    opts[card.correct].classList.add('correct');
+    fb.innerHTML = `<span style="color:var(--red)">❌ Dommage — revoir la fiche</span>`;
+  }
+}
+
+function goNext(currentIndex) {
+  const track = document.getElementById('feedTrack');
+  const nextCard = track.children[currentIndex + 1];
+  if (nextCard) nextCard.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Keyboard nav
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('feed-overlay').classList.contains('active')) return;
+  if (e.key === 'Escape') closeFeed();
+});
+
+// ══════════════════════════════════════════
+// Scroll reveal
+// ══════════════════════════════════════════
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>

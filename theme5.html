@@ -1,239 +1,111 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thème 5 - Les mutations du travail - CEJM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root { --primary: #4f46e5; --primary-soft: #e0e7ff; --bg: #f5f7ff; --surface: #ffffff; --text: #111827; --border: #e5e7eb; }
-        @media (prefers-color-scheme: dark) { :root { --bg: #0b1120; --surface: #111827; --text: #f8fafc; --border: #1f2937; --primary-soft:#1e1b4b; } }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: radial-gradient(circle at 0% 0%, rgba(79,70,229,0.12), transparent 32%), radial-gradient(circle at 100% 0%, rgba(6,182,212,0.1), transparent 34%), var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
-        .container { max-width: 1120px; margin: 0 auto; padding: 20px; }
-        
-        .top-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; position: sticky; top: 0; background: rgba(255,255,255,0.78); backdrop-filter: blur(12px); z-index: 100; }
-        .back-nav { display: flex; gap: 12px; flex-wrap: wrap; }
-        .back-nav a { text-decoration: none; color: var(--primary); font-weight: 600; }
-        .btn-print { background: linear-gradient(135deg, var(--primary), #06b6d4); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;}
-        .btn-print:hover { opacity: 0.8; }
-
-        header.theme-header { margin-bottom: 30px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; box-shadow: 0 20px 40px -30px rgba(79,70,229,0.65); }
-        header.theme-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
-        
-        .tabs { display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid var(--border); overflow-x: auto; scrollbar-width: none; background: var(--surface); padding: 8px; border-radius: 14px; }
-        .tab-btn { padding: 10px 16px; border: 1px solid transparent; background: none; color: var(--text); cursor: pointer; font-weight: 600; font-family: inherit; border-radius: 10px; white-space: nowrap; }
-        .tab-btn.active { color: #fff; border-color: var(--primary); background: linear-gradient(135deg, var(--primary), #06b6d4); }
-        .tab-content { display: none; animation: fadeIn 0.4s; }
-        .tab-content.active { display: block; }
-        .fiche-section { background: var(--surface); padding: 30px; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 20px; box-shadow: 0 20px 40px -30px rgba(79,70,229,0.6); }
-        .fiche-section h3 { color: var(--primary); margin-bottom: 15px; }
-        .fiche-section ul { padding-left: 20px; margin-bottom: 15px; }
-        .fiche-section li { margin-bottom: 8px; }
-
-        .grid-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .card-item { background: var(--surface); padding: 20px; border-radius: 15px; border-left: 5px solid var(--primary); }
-        .card-item strong { display: block; font-size: 1.1rem; margin-bottom: 5px; }
-
-        #quiz-container { background: var(--surface); padding: 40px; border-radius: 24px; text-align: center; }
-        .question { font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
-        .options { display: grid; gap: 10px; margin-bottom: 30px; }
-        .option-btn { padding: 15px; border: 2px solid var(--border); border-radius: 12px; background: var(--bg); color: var(--text); cursor: pointer; transition: 0.2s; font-family: inherit; font-size: 1rem; }
-        .option-btn:hover { border-color: var(--primary); background: var(--surface); }
-        .correct { background: #22c55e !important; color: white; border-color: #22c55e; }
-        .wrong { background: #ef4444 !important; color: white; border-color: #ef4444; }
-        
-        #pomodoro-widget { position: fixed; bottom: 20px; right: 20px; background: var(--surface); border: 2px solid var(--primary); padding: 15px 20px; border-radius: 50px; display: flex; align-items: center; gap: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 1000; }
-        #pomodoro-time { font-size: 1.5rem; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
-        .pomo-btn { background: var(--primary); color: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 1rem; display: flex; justify-content: center; align-items: center;}
-        
-        a:focus-visible, button:focus-visible { outline: 3px solid color-mix(in srgb, var(--primary) 60%, white); outline-offset: 2px; border-radius: 8px; }
-        @media (max-width: 768px) {
-            .container { padding: 14px; }
-            .top-bar { flex-direction: column; align-items: flex-start; }
-            .grid-cards { grid-template-columns: 1fr; }
-            #pomodoro-widget { right: 12px; bottom: 12px; transform: scale(0.92); transform-origin: bottom right; }
-        }
-        @media print {
-            body { background: white; color: black; }
-            .no-print, nav, .tabs, #pomodoro-widget, #quiz { display: none !important; }
-            .container { max-width: 100%; padding: 0; }
-            .tab-content { display: block !important; } 
-            .fiche-section { border: 1px solid #ccc; page-break-inside: avoid; }
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T5 — Mutations du travail · CEJM Flash</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="cejm-shared.css">
+<style>:root{--tc:#f87171;--tc-soft:rgba(248,113,113,0.1);--tc-border:rgba(248,113,113,0.25);}</style>
 </head>
 <body>
-    <div class="container">
-        <div class="top-bar no-print">
-            <nav class="back-nav" aria-label="Navigation thème">
-                <a href="index.html"><i class="fa-solid fa-house"></i> Accueil</a>
-                <a href="methodologie.html"><i class="fa-solid fa-wand-magic-sparkles"></i> Méthodo</a>
-                <a href="quiz-blanc.html"><i class="fa-solid fa-trophy"></i> Quiz blanc</a>
-            </nav>
-            <button class="btn-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Anti-sèche (PDF)</button>
-        </div>
-
-        <header class="theme-header">
-            <span style="color:var(--primary); font-weight: 700;">THÈME 5</span>
-            <h1>Les mutations du travail</h1>
-        </header>
-
-        <div class="tabs no-print">
-            <button class="tab-btn active" onclick="openTab(event, 'fiche')">Fiche de synthèse</button>
-            <button class="tab-btn" onclick="openTab(event, 'lexique')">Lexique & Auteurs</button>
-            <button class="tab-btn" onclick="openTab(event, 'quiz')">Quiz Interactif</button>
-        </div>
-
-        <div id="fiche" class="tab-content active">
-            <div class="fiche-section">
-                <h3>1. Le marché du travail</h3>
-                <p>Selon la <strong>Théorie du capital humain (Gary Becker)</strong>, l'employé investit dans sa formation pour accroître sa productivité. Le marché est dual : les insiders (CDI, emplois stables) vs outsiders (CDD, intérim, ubérisation).</p>
-                <ul>
-                    <li><strong>Politiques de l'emploi :</strong> Actives (formation, allègements de cotisations) vs Passives (indemnisation chômage, préretraites).</li>
-                </ul>
-            </div>
-            <div class="fiche-section">
-                <h3>2. Le Droit Négocié et le contrat</h3>
-                <p>Le Code du travail définit le socle minimal, mais les partenaires sociaux adaptent les règles via le <strong>droit négocié</strong>.</p>
-                <ul>
-                    <li><strong>Hiérarchie des normes :</strong> Dans certains domaines (temps de travail), l'accord d'entreprise prime sur la convention collective de branche.</li>
-                    <li><strong>Pouvoir de l'employeur :</strong> Direction, contrôle et sanction (pouvoir disciplinaire).</li>
-                </ul>
-            </div>
-            <div class="fiche-section">
-                <h3>3. Motivation et GEPP</h3>
-                <p>La fidélisation est un défi. <strong>Abraham Maslow</strong> et <strong>Frederick Herzberg</strong> (Théorie bifactorielle) montrent que le salaire évite l'insatisfaction, mais que la reconnaissance et l'autonomie créent la vraie motivation.</p>
-                <ul>
-                    <li><strong>GEPP :</strong> Gestion des Emplois et Parcours Professionnels. Permet d'anticiper les besoins en compétences.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="lexique" class="tab-content">
-            <div class="grid-cards">
-                <div class="card-item"><strong>Flexicurité</strong>Modèle alliant flexibilité pour licencier/embaucher et forte sécurité (formation/indemnisation) pour les salariés.</div>
-                <div class="card-item"><strong>F. Herzberg</strong>Distingue les facteurs d'hygiène (salaire, conditions) des facteurs moteurs (responsabilité) qui motivent réellement.</div>
-                <div class="card-item"><strong>Droit négocié</strong>Ensemble des règles issues d'accords conclus entre les représentants des employeurs et des syndicats.</div>
-                <div class="card-item"><strong>Pouvoir disciplinaire</strong>Droit de l'employeur de sanctionner proportionnellement un salarié en cas de faute.</div>
-            </div>
-        </div>
-
-        <div id="quiz" class="tab-content no-print">
-            <div id="quiz-container">
-                <div id="question-box">
-                    <p class="question" id="q-text">Chargement...</p>
-                    <div class="options" id="options-box"></div>
-                </div>
-                <p id="quiz-feedback" style="font-weight: 600; font-size: 1.1rem; margin-top: 15px;"></p>
-            </div>
-        </div>
-
-        <div id="pomodoro-widget" class="no-print">
-            <i class="fa-solid fa-stopwatch" style="color:var(--primary); font-size:1.5rem;"></i>
-            <span id="pomodoro-time">25:00</span>
-            <button class="pomo-btn" id="pomo-start" onclick="togglePomodoro()"><i class="fa-solid fa-play"></i></button>
-            <button class="pomo-btn" style="background:#ef4444;" onclick="resetPomodoro()"><i class="fa-solid fa-rotate-right"></i></button>
-        </div>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">CEJM<span>FLASH</span></a>
+  <div class="nav-links">
+    <a href="index.html"><i class="fa-solid fa-house fa-sm"></i> <span>Accueil</span></a>
+    <a href="methodologie.html"><i class="fa-solid fa-wand-magic-sparkles fa-sm"></i> <span>Méthodo</span></a>
+    <a href="quiz-blanc.html"><i class="fa-solid fa-trophy fa-sm"></i> <span>Quiz blanc</span></a>
+    <a href="index.html" class="nav-btn-flash"><i class="fa-solid fa-bolt fa-sm"></i> Flash</a>
+  </div>
+</nav>
+<div class="page-wrap container">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+    <nav class="breadcrumb"><a href="index.html"><i class="fa-solid fa-house fa-xs"></i> Accueil</a><span>/</span><a href="index.html#themes">Thèmes</a><span>/</span><span style="color:var(--tc);font-weight:600;">Thème 5</span></nav>
+    <button class="btn-print no-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Anti-sèche PDF</button>
+  </div>
+  <header class="theme-header">
+    <span class="eyebrow"><i class="fa-solid fa-people-group fa-xs"></i> Thème 5 · Management / Éco</span>
+    <h1>Les mutations du travail</h1>
+    <p>Marché du travail, droit négocié, motivation des salariés, GEPP. Auteurs : Becker, Maslow, Herzberg, Likert.</p>
+  </header>
+  <div class="tabs no-print">
+    <button class="tab-btn active" onclick="openTab(event,'fiche')"><i class="fa-solid fa-file-lines fa-sm"></i> Fiche de synthèse</button>
+    <button class="tab-btn" onclick="openTab(event,'lexique')"><i class="fa-solid fa-book fa-sm"></i> Lexique & Auteurs</button>
+    <button class="tab-btn" onclick="openTab(event,'quiz')"><i class="fa-solid fa-circle-question fa-sm"></i> Quiz interactif</button>
+  </div>
+  <div id="fiche" class="tab-content active">
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-briefcase"></i> 1. Le marché du travail</h3>
+      <p>Selon la <strong>théorie du capital humain (Gary Becker)</strong>, l'individu investit dans sa formation pour accroître sa productivité future. Le marché est <strong>dual</strong> : insiders (CDI, emplois stables) vs outsiders (CDD, intérim, auto-entrepreneurs).</p>
+      <ul>
+        <li><strong>Politiques actives :</strong> formation, apprentissage, allègements de charges — visent à insérer ou ré-insérer.</li>
+        <li><strong>Politiques passives :</strong> indemnisation du chômage, préretraites — visent à gérer l'exclusion du marché.</li>
+        <li><strong>Flexicurité (modèle nordique) :</strong> flexibilité pour l'employeur + forte sécurisation (formation, indemnités) pour le salarié.</li>
+      </ul>
     </div>
-
-    <script>
-        function openTab(evt, tabName) {
-            let i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) tablinks[i].classList.remove("active");
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-
-        const quizData = [
-            { q: "Selon Herzberg, le salaire est un facteur :", options: ["Moteur de motivation", "D'hygiène (évite l'insatisfaction)", "Inutile"], correct: 1 },
-            { q: "En droit du travail, lorsque l'accord d'entreprise prime sur l'accord de branche, on parle de :", options: ["Hiérarchie stricte", "Inversion de la hiérarchie des normes", "Droit coutumier"], correct: 1 },
-            { q: "Une politique de l'emploi consistant à indemniser le chômage est une politique :", options: ["Passive", "Active", "Structurelle"], correct: 0 }
-        ];
-
-        let currentQ = 0;
-        function loadQuestion() {
-            const q = quizData[currentQ];
-            document.getElementById("q-text").innerText = q.q;
-            const optionsBox = document.getElementById("options-box");
-            optionsBox.innerHTML = "";
-            q.options.forEach((opt, index) => {
-                const btn = document.createElement("button");
-                btn.classList.add("option-btn");
-                btn.innerText = opt;
-                btn.onclick = () => checkAnswer(index, btn);
-                optionsBox.appendChild(btn);
-            });
-        }
-
-        function checkAnswer(index, btnElement) {
-            const feedback = document.getElementById("quiz-feedback");
-            const buttons = document.querySelectorAll('.option-btn');
-            buttons.forEach(b => b.disabled = true);
-
-            if(index === quizData[currentQ].correct) {
-                btnElement.classList.add("correct");
-                feedback.innerHTML = "<span style='color:#22c55e'>Excellente réponse !</span>";
-                currentQ++;
-                if(currentQ < quizData.length) { setTimeout(() => { feedback.innerText = ""; loadQuestion(); }, 1500); } 
-                else { setTimeout(() => { document.getElementById("question-box").innerHTML = "<h3 style='color:var(--primary)'>Quiz terminé ! Objectif atteint.</h3>"; feedback.innerText = ""; }, 1500); }
-            } else {
-                btnElement.classList.add("wrong");
-                buttons[quizData[currentQ].correct].classList.add("correct");
-                feedback.innerHTML = "<span style='color:#ef4444'>Dommage, regarde la bonne réponse.</span>";
-                currentQ++;
-                if(currentQ < quizData.length) { setTimeout(() => { feedback.innerText = ""; loadQuestion(); }, 2500); } 
-                else { setTimeout(() => { document.getElementById("question-box").innerHTML = "<h3 style='color:var(--primary)'>Quiz terminé ! Pense à revoir la fiche.</h3>"; feedback.innerText = ""; }, 2500); }
-            }
-        }
-        loadQuestion();
-
-        let pomoInterval;
-        let pomoTime = 25 * 60;
-        let isPomoRunning = false;
-        
-        function updatePomoDisplay() {
-            let minutes = Math.floor(pomoTime / 60);
-            let seconds = pomoTime % 60;
-            document.getElementById('pomodoro-time').innerText = 
-                (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-        }
-
-        function togglePomodoro() {
-            const btnIcon = document.querySelector('#pomo-start i');
-            if (isPomoRunning) {
-                clearInterval(pomoInterval);
-                btnIcon.classList.remove('fa-pause');
-                btnIcon.classList.add('fa-play');
-            } else {
-                pomoInterval = setInterval(() => {
-                    if (pomoTime > 0) {
-                        pomoTime--;
-                        updatePomoDisplay();
-                    } else {
-                        clearInterval(pomoInterval);
-                        alert("Pomodoro terminé ! Prends 5 minutes de pause.");
-                    }
-                }, 1000);
-                btnIcon.classList.remove('fa-play');
-                btnIcon.classList.add('fa-pause');
-            }
-            isPomoRunning = !isPomoRunning;
-        }
-
-        function resetPomodoro() {
-            clearInterval(pomoInterval);
-            isPomoRunning = false;
-            pomoTime = 25 * 60;
-            updatePomoDisplay();
-            const btnIcon = document.querySelector('#pomo-start i');
-            btnIcon.classList.remove('fa-pause');
-            btnIcon.classList.add('fa-play');
-        }
-    </script>
-</body>
-</html>
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-handshake"></i> 2. Le droit négocié et le contrat de travail</h3>
+      <p>Le Code du travail fixe un socle minimal. Les partenaires sociaux adaptent les règles via le <strong>droit négocié</strong> (conventions collectives, accords de branche ou d'entreprise).</p>
+      <ul>
+        <li><strong>Hiérarchie des normes :</strong> dans certains domaines (temps de travail), l'accord d'entreprise peut primer sur la convention de branche (inversion du principe de faveur).</li>
+        <li><strong>Pouvoir de direction :</strong> fixer les règles de travail.</li>
+        <li><strong>Pouvoir réglementaire :</strong> élaborer le règlement intérieur.</li>
+        <li><strong>Pouvoir disciplinaire :</strong> sanctionner proportionnellement toute faute (avertissement, mise à pied, licenciement).</li>
+        <li><strong>Modification du contrat vs conditions de travail :</strong> changer le salaire = accord obligatoire ; changer le bureau = unilatéral.</li>
+      </ul>
+    </div>
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-brain"></i> 3. Motivation et GEPP</h3>
+      <p><strong>Abraham Maslow</strong> (pyramide des besoins) et <strong>Frederick Herzberg</strong> (théorie bifactorielle) montrent que le salaire évite l'insatisfaction (facteur d'hygiène) mais que la reconnaissance et l'autonomie créent la vraie motivation (facteurs moteurs).</p>
+      <ul>
+        <li><strong>GEPP :</strong> Gestion des Emplois et Parcours Professionnels — anticipe les besoins futurs en compétences. Obligatoire +300 salariés.</li>
+        <li><strong>Entretien professionnel :</strong> obligatoire tous les 2 ans pour faire le point sur le parcours du salarié.</li>
+      </ul>
+    </div>
+  </div>
+  <div id="lexique" class="tab-content">
+    <div class="lexique-grid">
+      <div class="lex-card"><strong>G. Becker</strong><span>Théorie du capital humain : l'individu investit dans sa formation (coût) pour augmenter ses revenus futurs (rendement). Nobel d'éco. 1992.</span></div>
+      <div class="lex-card"><strong>F. Herzberg</strong><span>Théorie bifactorielle : facteurs d'hygiène (salaire, conditions) évitent l'insatisfaction. Facteurs moteurs (responsabilité, reconnaissance) créent la motivation.</span></div>
+      <div class="lex-card"><strong>A. Maslow</strong><span>Pyramide des besoins (1943) : physiologiques → sécurité → appartenance → estime → accomplissement. Besoin supérieur motivant uniquement si les inférieurs sont satisfaits.</span></div>
+      <div class="lex-card"><strong>Flexicurité</strong><span>Modèle danois : grande facilité d'embauche/licenciement pour l'employeur, combinée à un fort filet de sécurité et de formation pour le salarié.</span></div>
+      <div class="lex-card"><strong>Droit négocié</strong><span>Règles sociales issues de négociations entre syndicats et représentants des employeurs. Complète et adapte la loi.</span></div>
+      <div class="lex-card"><strong>GEPP</strong><span>Gestion des Emplois et des Parcours Professionnels. Démarche préventive d'anticipation des compétences futures de l'entreprise.</span></div>
+      <div class="lex-card"><strong>Pouvoir disciplinaire</strong><span>Droit de l'employeur de sanctionner un salarié fautif de manière proportionnelle : avertissement, mise à pied, licenciement.</span></div>
+      <div class="lex-card"><strong>Insiders / Outsiders</strong><span>Marché dual : insiders = CDI protégés ; outsiders = CDD, intérimaires, auto-entrepreneurs en position plus précaire.</span></div>
+    </div>
+  </div>
+  <div id="quiz" class="tab-content no-print">
+    <div class="quiz-wrap">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpf"></div></div>
+      <div class="quiz-counter">Question <span id="qnum">1</span> / 5</div>
+      <div class="quiz-question" id="qtext">Chargement…</div>
+      <div class="quiz-options" id="qopts"></div>
+      <div class="quiz-feedback" id="qfb"></div>
+    </div>
+  </div>
+</div>
+<div id="pomo-widget" class="no-print">
+  <i class="fa-solid fa-stopwatch" style="color:var(--tc);font-size:1.2rem;"></i>
+  <span id="pomo-time">25:00</span>
+  <button class="pomo-btn pomo-btn-start" id="pomo-start" onclick="togglePomo()"><i class="fa-solid fa-play"></i></button>
+  <button class="pomo-btn pomo-btn-reset" onclick="resetPomo()"><i class="fa-solid fa-rotate-right"></i></button>
+</div>
+<script>
+function openTab(e,id){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');e.currentTarget.classList.add('active');}
+const quiz=[
+  {q:"Selon Herzberg, le salaire est un facteur :",opts:["Moteur de motivation","D'hygiène (évite l'insatisfaction)","Inutile à la motivation"],a:1},
+  {q:"Une politique de l'emploi qui indemnise le chômage est une politique :",opts:["Passive","Active","Structurelle"],a:0},
+  {q:"La théorie du capital humain de Becker compare la formation à :",opts:["Un coût à minimiser","Un investissement","Une obligation légale"],a:1},
+  {q:"La modification du SALAIRE d'un salarié nécessite :",opts:["Une décision unilatérale","L'accord obligatoire du salarié","L'accord de l'inspection du travail"],a:1},
+  {q:"La GEPP est obligatoire dans les entreprises de :",opts:["+50 salariés","+100 salariés","+300 salariés"],a:2},
+];
+let qi=0,done=new Set();
+function loadQ(){if(qi>=quiz.length){document.querySelector('.quiz-wrap').innerHTML='<div style="font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--tc)">Quiz terminé ! 🎉</div><p style="color:var(--muted);margin-top:8px;">Repasse à la fiche pour consolider.</p>';return;}const q=quiz[qi];document.getElementById('qnum').textContent=qi+1;document.getElementById('qpf').style.width=((qi+1)/quiz.length*100)+'%';document.getElementById('qtext').textContent=q.q;document.getElementById('qfb').innerHTML='';const box=document.getElementById('qopts');box.innerHTML=q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answer(${i},this)">${String.fromCharCode(65+i)}. ${o}</button>`).join('');}
+function answer(idx,btn){if(done.has(qi))return;done.add(qi);document.querySelectorAll('.quiz-opt').forEach(b=>b.disabled=true);const fb=document.getElementById('qfb');if(idx===quiz[qi].a){btn.classList.add('correct');fb.innerHTML='<span style="color:var(--green)">✅ Bonne réponse !</span>';}else{btn.classList.add('wrong');document.querySelectorAll('.quiz-opt')[quiz[qi].a].classList.add('correct');fb.innerHTML='<span style="color:var(--red)">❌ Revoir la fiche.</span>';}qi++;setTimeout(loadQ,1600);}
+loadQ();
+let pomoT=25*60,pomoR,pomoOn=false;
+function togglePomo(){pomoOn=!pomoOn;document.getElementById('pomo-start').innerHTML=pomoOn?'<i class="fa-solid fa-pause"></i>':'<i class="fa-solid fa-play"></i>';if(pomoOn){pomoR=setInterval(()=>{if(--pomoT<=0){clearInterval(pomoR);pomoOn=false;pomoT=25*60;}document.getElementById('pomo-time').textContent=`${String(Math.floor(pomoT/60)).padStart(2,'0')}:${String(pomoT%60).padStart(2,'0')}`;},1000);}else clearInterval(pomoR);}
+function resetPomo(){clearInterval(pomoR);pomoOn=false;pomoT=25*60;document.getElementById('pomo-time').textContent='25:00';document.getElementById('pomo-start').innerHTML='<i class="fa-solid fa-play"></i>';}
+</script>
+</body></html>

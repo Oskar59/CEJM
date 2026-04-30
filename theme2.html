@@ -1,6 +1,117 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T2 — Régulation économique · CEJM Flash</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="cejm-shared.css">
+<style>:root{--tc:#22d3ee;--tc-soft:rgba(34,211,238,0.1);--tc-border:rgba(34,211,238,0.25);}</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">CEJM<span>FLASH</span></a>
+  <div class="nav-links">
+    <a href="index.html"><i class="fa-solid fa-house fa-sm"></i> <span>Accueil</span></a>
+    <a href="methodologie.html"><i class="fa-solid fa-wand-magic-sparkles fa-sm"></i> <span>Méthodo</span></a>
+    <a href="quiz-blanc.html"><i class="fa-solid fa-trophy fa-sm"></i> <span>Quiz blanc</span></a>
+    <a href="index.html" class="nav-btn-flash"><i class="fa-solid fa-bolt fa-sm"></i> Flash</a>
+  </div>
+</nav>
+<div class="page-wrap container">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+    <nav class="breadcrumb"><a href="index.html"><i class="fa-solid fa-house fa-xs"></i> Accueil</a><span>/</span><a href="index.html#themes">Thèmes</a><span>/</span><span style="color:var(--tc);font-weight:600;">Thème 2</span></nav>
+    <button class="btn-print no-print" onclick="window.print()"><i class="fa-solid fa-print"></i> Anti-sèche PDF</button>
+  </div>
+  <header class="theme-header">
+    <span class="eyebrow"><i class="fa-solid fa-scale-balanced fa-xs"></i> Thème 2 · Éco / Droit</span>
+    <h1>La régulation économique et juridique</h1>
+    <p>Fonctions de l'État (Musgrave), politiques économiques, droit de la concurrence, propriété industrielle. Auteurs : Musgrave, Keynes, Pigou, Schumpeter.</p>
+  </header>
+  <div class="tabs no-print">
+    <button class="tab-btn active" onclick="openTab(event,'fiche')"><i class="fa-solid fa-file-lines fa-sm"></i> Fiche de synthèse</button>
+    <button class="tab-btn" onclick="openTab(event,'lexique')"><i class="fa-solid fa-book fa-sm"></i> Lexique & Auteurs</button>
+    <button class="tab-btn" onclick="openTab(event,'quiz')"><i class="fa-solid fa-circle-question fa-sm"></i> Quiz interactif</button>
+  </div>
+  <div id="fiche" class="tab-content active">
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-landmark"></i> 1. L'intervention de l'État</h3>
+      <p><strong>Richard Musgrave</strong> théorise les 3 fonctions de l'État : <strong>Allocation</strong> (financer les biens publics non produits par le marché), <strong>Redistribution</strong> (réduire les inégalités) et <strong>Régulation</strong> (stabiliser l'économie par des politiques conjoncturelles d'inspiration keynésienne).</p>
+      <ul>
+        <li><strong>Politique conjoncturelle :</strong> action à court terme — relance (dépenses, baisse d'impôts) ou rigueur (austérité). Politique budgétaire (État) ou monétaire (BCE : taux d'intérêt directeurs).</li>
+        <li><strong>Politique structurelle :</strong> action à long terme pour modifier l'économie en profondeur (transition écologique, politique industrielle, formation).</li>
+        <li><strong>Défaillances du marché :</strong> externalités, asymétries d'info, biens publics, monopoles → justifient l'intervention étatique.</li>
+      </ul>
+    </div>
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-gavel"></i> 2. Le droit de la concurrence</h3>
+      <p>Pour que le marché fonctionne, l'État veille via des <strong>Autorités Administratives Indépendantes (AAI)</strong> comme l'<strong>Autorité de la Concurrence</strong> (France) et la Commission Européenne (UE).</p>
+      <ul>
+        <li><strong>Ententes illicites :</strong> accords secrets entre concurrents pour fixer les prix ou se partager des marchés (cartels). Fortement sanctionnés.</li>
+        <li><strong>Abus de position dominante :</strong> profiter de sa part de marché pour imposer des conditions abusives ou éliminer des concurrents.</li>
+        <li><strong>Concurrence déloyale :</strong> pratiques trompeuses, dénigrement, parasitisme commercial.</li>
+      </ul>
+    </div>
+    <div class="fiche-section">
+      <h3><i class="fa-solid fa-lightbulb"></i> 3. La protection de l'innovation</h3>
+      <p>Pour inciter à la R&amp;D, le droit de la <strong>propriété industrielle</strong> octroie un monopole temporaire via l'<strong>INPI</strong>.</p>
+      <ul>
+        <li><strong>Brevet :</strong> protège une innovation technique pour <strong>20 ans</strong>. Condition : divulgation publique.</li>
+        <li><strong>Marque :</strong> protège un signe distinctif (logo, nom). Renouvelable indéfiniment tous les <strong>10 ans</strong>.</li>
+        <li><strong>Droit d'auteur :</strong> protection automatique des œuvres de l'esprit (70 ans après décès). Géré par l'INPI ou les SPRD.</li>
+        <li><strong>Contrefaçon :</strong> délit pénal — reproduction sans autorisation du titulaire.</li>
+      </ul>
+    </div>
+  </div>
+  <div id="lexique" class="tab-content">
+    <div class="lexique-grid">
+      <div class="lex-card"><strong>R. Musgrave</strong><span>Théorise les 3 fonctions de l'État : Allocation, Redistribution, Régulation. Pilier de la finance publique moderne.</span></div>
+      <div class="lex-card"><strong>J.M. Keynes</strong><span>Père de la macroéconomie. Prône l'intervention de l'État en cas de récession pour relancer la demande par les dépenses publiques.</span></div>
+      <div class="lex-card"><strong>A. Pigou</strong><span>Propose la "taxe pigouvienne" (pollueur-payeur) pour internaliser les externalités négatives dans les prix du marché.</span></div>
+      <div class="lex-card"><strong>Politique monétaire</strong><span>Gérée par la BCE en zone euro. Joue sur les taux directeurs pour contrôler l'inflation (cible : ~2%).</span></div>
+      <div class="lex-card"><strong>Entente illicite</strong><span>Accord secret entre entreprises pour fausser la concurrence (fix. des prix, partage de marchés). Sanction : amende + nullité.</span></div>
+      <div class="lex-card"><strong>INPI</strong><span>Institut National de la Propriété Industrielle. Organisme de dépôt des brevets, marques, dessins et modèles en France.</span></div>
+      <div class="lex-card"><strong>Contrefaçon</strong><span>Délit pénal : reproduction ou imitation d'une œuvre, marque ou brevet sans autorisation du titulaire.</span></div>
+      <div class="lex-card"><strong>Bien public</strong><span>Bien non rival (consommé sans réduire la quantité dispo.) et non exclusif (on ne peut exclure personne). Ex : éclairage public.</span></div>
+    </div>
+  </div>
+  <div id="quiz" class="tab-content no-print">
+    <div class="quiz-wrap">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="qpf"></div></div>
+      <div class="quiz-counter">Question <span id="qnum">1</span> / 5</div>
+      <div class="quiz-question" id="qtext">Chargement…</div>
+      <div class="quiz-options" id="qopts"></div>
+      <div class="quiz-feedback" id="qfb"></div>
+    </div>
+  </div>
+</div>
+<div id="pomo-widget" class="no-print">
+  <i class="fa-solid fa-stopwatch" style="color:var(--tc);font-size:1.2rem;"></i>
+  <span id="pomo-time">25:00</span>
+  <button class="pomo-btn pomo-btn-start" id="pomo-start" onclick="togglePomo()"><i class="fa-solid fa-play"></i></button>
+  <button class="pomo-btn pomo-btn-reset" onclick="resetPomo()"><i class="fa-solid fa-rotate-right"></i></button>
+</div>
+<script>
+function openTab(e,id){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');e.currentTarget.classList.add('active');}
+const quiz=[
+  {q:"Selon Musgrave, quelle fonction de l'État vise à réduire les inégalités de revenus ?",opts:["L'allocation","La redistribution","La régulation"],a:1},
+  {q:"Où une entreprise française dépose-t-elle un brevet d'invention ?",opts:["À la CNIL","À l'INPI","Au Tribunal de Commerce"],a:1},
+  {q:"Sanctionner un cartel qui fixe les prix en secret relève de la lutte contre :",opts:["L'abus de position dominante","Les ententes illicites","La concurrence déloyale"],a:1},
+  {q:"La BCE est responsable de la politique :",opts:["Budgétaire","Monétaire","Structurelle"],a:1},
+  {q:"Une marque déposée à l'INPI est protégée :",opts:["20 ans non renouvelables","10 ans renouvelables indéfiniment","70 ans après la mort de l'auteur"],a:1},
+];
+let qi=0,done=new Set();
+function loadQ(){if(qi>=quiz.length){document.querySelector('.quiz-wrap').innerHTML='<div style="font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--tc)">Quiz terminé ! 🎉</div><p style="color:var(--muted);margin-top:8px;">Repasse à la fiche pour consolider.</p>';return;}const q=quiz[qi];document.getElementById('qnum').textContent=qi+1;document.getElementById('qpf').style.width=((qi+1)/quiz.length*100)+'%';document.getElementById('qtext').textContent=q.q;document.getElementById('qfb').innerHTML='';const box=document.getElementById('qopts');box.innerHTML=q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answer(${i},this)">${String.fromCharCode(65+i)}. ${o}</button>`).join('');}
+function answer(idx,btn){if(done.has(qi))return;done.add(qi);document.querySelectorAll('.quiz-opt').forEach(b=>b.disabled=true);const fb=document.getElementById('qfb');if(idx===quiz[qi].a){btn.classList.add('correct');fb.innerHTML='<span style="color:var(--green)">✅ Bonne réponse !</span>';}else{btn.classList.add('wrong');document.querySelectorAll('.quiz-opt')[quiz[qi].a].classList.add('correct');fb.innerHTML='<span style="color:var(--red)">❌ Revoir la fiche.</span>';}qi++;setTimeout(loadQ,1600);}
+loadQ();
+let pomoT=25*60,pomoR,pomoOn=false;
+function togglePomo(){pomoOn=!pomoOn;document.getElementById('pomo-start').innerHTML=pomoOn?'<i class="fa-solid fa-pause"></i>':'<i class="fa-solid fa-play"></i>';if(pomoOn){pomoR=setInterval(()=>{if(--pomoT<=0){clearInterval(pomoR);pomoOn=false;pomoT=25*60;}document.getElementById('pomo-time').textContent=`${String(Math.floor(pomoT/60)).padStart(2,'0')}:${String(pomoT%60).padStart(2,'0')}`;},1000);}else clearInterval(pomoR);}
+function resetPomo(){clearInterval(pomoR);pomoOn=false;pomoT=25*60;document.getElementById('pomo-time').textContent='25:00';document.getElementById('pomo-start').innerHTML='<i class="fa-solid fa-play"></i>';}
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="fr">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thème 2 - La régulation de l'activité économique - CEJM</title>

@@ -5,74 +5,78 @@
 <title>Méthodologie & Hacks · CEJM Flash</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="cejm-shared.css">
 <style>
-:root { --tc: #fbbf24; --tc-soft: rgba(251,191,36,0.1); --tc-border: rgba(251,191,36,0.25); }
+:root {
+  --bg: #07070f; --surface: #0e0e1e; --surface2: #15152a; --surface3: #1c1c35;
+  --border: rgba(168,85,247,0.12); --border2: rgba(255,255,255,0.07);
+  --primary: #a855f7; --pink: #f472b6; --cyan: #22d3ee; --yellow: #fbbf24;
+  --green: #34d399; --red: #f87171; --text: #f0f0fa; --muted: rgba(240,240,250,0.45);
+  --font-display: 'Syne', sans-serif; --font-body: 'DM Sans', sans-serif;
+  --tc: #fbbf24; --tc-soft: rgba(251,191,36,0.1); --tc-border: rgba(251,191,36,0.25);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 999; opacity: 0.4; }
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; padding: 0 28px; height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: rgba(7,7,15,0.88); backdrop-filter: blur(18px); border-bottom: 1px solid var(--border2); }
+.nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
+.nav-logo span { background: linear-gradient(135deg, var(--primary), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.nav-links { display: flex; gap: 4px; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--muted); font-size: 0.85rem; font-weight: 500; padding: 6px 12px; border-radius: 8px; transition: all 0.2s; border: 1px solid transparent; }
+.nav-links a:hover { color: var(--text); border-color: var(--border2); }
+.nav-links .nav-btn-flash { background: linear-gradient(135deg, var(--primary), var(--pink)); color: white !important; font-weight: 700; border-color: transparent !important; }
+.page-wrap { padding-top: 80px; padding-bottom: 60px; }
+.theme-header { margin-bottom: 32px; background: var(--surface); border: 1px solid var(--border2); border-left: 4px solid var(--tc); border-radius: 20px; padding: 28px 32px; position: relative; overflow: hidden; }
+.theme-header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 220px; height: 220px; background: radial-gradient(circle, var(--tc-soft), transparent 70%); pointer-events: none; }
+.theme-header .eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tc); background: var(--tc-soft); border: 1px solid var(--tc-border); padding: 3px 12px; border-radius: 999px; margin-bottom: 12px; }
+.theme-header h1 { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+.theme-header p { color: var(--muted); font-size: 0.95rem; max-width: 620px; }
+.tabs { display: flex; gap: 6px; margin-bottom: 28px; overflow-x: auto; scrollbar-width: none; background: var(--surface); padding: 6px; border-radius: 14px; border: 1px solid var(--border2); }
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn { padding: 9px 18px; border: 1px solid transparent; background: none; color: var(--muted); cursor: pointer; font-weight: 600; font-family: var(--font-body); font-size: 0.9rem; border-radius: 10px; white-space: nowrap; transition: all 0.2s; }
+.tab-btn:hover { color: var(--text); border-color: var(--border2); }
+.tab-btn.active { color: #07070f; border-color: var(--tc); background: linear-gradient(135deg, var(--tc), rgba(251,191,36,0.75)); box-shadow: 0 0 16px rgba(251,191,36,0.4); }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeUp 0.35s ease; }
+.fiche-section { background: var(--surface); padding: 28px 32px; border-radius: 18px; border: 1px solid var(--border2); margin-bottom: 16px; border-left: 3px solid var(--tc); }
+.fiche-section h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; color: var(--tc); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.fiche-section p { color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 12px; }
+.fiche-section p strong { color: var(--text); }
+.fiche-section ul { padding-left: 20px; display: grid; gap: 6px; }
+.fiche-section li { color: var(--muted); font-size: 0.93rem; line-height: 1.6; }
+.fiche-section li strong { color: var(--text); }
+.breadcrumb { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--tc); }
+.breadcrumb span { color: var(--border2); font-size: 0.8rem; }
 
-/* Syllogisme steps */
-.syl-step {
-  display: flex; gap: 0; margin-bottom: 12px;
-  border-radius: 14px; overflow: hidden;
-  border: 1px solid var(--border2);
-}
-.syl-num {
-  background: linear-gradient(135deg, var(--tc), color-mix(in srgb, var(--tc) 70%, var(--pink)));
-  color: #0a0a00; font-weight: 800; font-size: 1.3rem;
-  padding: 20px 22px; display: flex; align-items: center;
-  font-family: var(--font-display); min-width: 64px; justify-content: center;
-}
+/* Syllogisme */
+.syl-step { display: flex; gap: 0; margin-bottom: 12px; border-radius: 14px; overflow: hidden; border: 1px solid var(--border2); }
+.syl-num { background: linear-gradient(135deg, var(--tc), rgba(251,191,36,0.7)); color: #07070f; font-weight: 800; font-size: 1.3rem; padding: 20px 22px; display: flex; align-items: center; font-family: var(--font-display); min-width: 64px; justify-content: center; }
 .syl-body { padding: 18px 20px; background: var(--surface2); flex: 1; }
 .syl-body h4 { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--tc); margin-bottom: 4px; }
 .syl-body p { color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
 .syl-body em { font-style: italic; color: rgba(240,240,250,0.55); }
 
 /* AEI */
-.aei-row {
-  display: flex; align-items: flex-start; gap: 16px;
-  padding: 16px; background: var(--surface2);
-  border-radius: 12px; border: 1px solid var(--border2);
-  margin-bottom: 10px;
-}
-.aei-letter {
-  width: 44px; height: 44px; border-radius: 12px;
-  background: linear-gradient(135deg, var(--tc), color-mix(in srgb, var(--tc) 70%, var(--pink)));
-  color: #0a0a00; font-weight: 800; font-size: 1.2rem;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); flex-shrink: 0;
-}
+.aei-row { display: flex; align-items: flex-start; gap: 16px; padding: 16px; background: var(--surface2); border-radius: 12px; border: 1px solid var(--border2); margin-bottom: 10px; }
+.aei-letter { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, var(--tc), rgba(251,191,36,0.7)); color: #07070f; font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); flex-shrink: 0; }
 .aei-content strong { color: var(--tc); font-weight: 700; display: block; margin-bottom: 3px; }
 .aei-content p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
 
-/* Accordéon hacks */
-.acc-btn {
-  width: 100%; text-align: left; background: var(--surface2);
-  border: 1px solid var(--border2); color: var(--text);
-  padding: 16px 20px; border-radius: 12px; margin-bottom: 8px;
-  cursor: pointer; font-family: var(--font-body); font-size: 0.95rem;
-  font-weight: 600; display: flex; justify-content: space-between; align-items: center;
-  transition: all 0.2s;
-}
+/* Accordéon */
+.acc-btn { width: 100%; text-align: left; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); padding: 16px 20px; border-radius: 12px; margin-bottom: 8px; cursor: pointer; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; }
 .acc-btn:hover, .acc-btn.open { border-color: var(--tc); color: var(--tc); }
 .acc-btn.open { border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: 0; }
-.acc-panel {
-  display: none; background: var(--surface2);
-  border: 1px solid var(--tc-border); border-top: none;
-  border-radius: 0 0 12px 12px; padding: 16px 20px;
-  margin-bottom: 8px; color: var(--muted); font-size: 0.9rem; line-height: 1.75;
-}
+.acc-panel { display: none; background: var(--surface2); border: 1px solid var(--tc-border); border-top: none; border-radius: 0 0 12px 12px; padding: 16px 20px; margin-bottom: 8px; color: var(--muted); font-size: 0.9rem; line-height: 1.75; }
 .acc-panel strong { color: var(--text); }
 .acc-panel em { color: rgba(240,240,250,0.5); font-style: italic; }
-.hack-badge {
-  display: inline-block; padding: 2px 10px; border-radius: 999px;
-  background: rgba(52,211,153,0.15); color: var(--green);
-  border: 1px solid rgba(52,211,153,0.3); font-size: 0.7rem; font-weight: 700;
-  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px;
-}
-.pattern-section-title {
-  font-family: var(--font-display); font-size: 0.85rem; font-weight: 700;
-  color: var(--tc); text-transform: uppercase; letter-spacing: 0.08em;
-  margin: 24px 0 12px; display: flex; align-items: center; gap: 8px;
-}
+.hack-badge { display: inline-block; padding: 2px 10px; border-radius: 999px; background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.3); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
+.pattern-section-title { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; color: var(--tc); text-transform: uppercase; letter-spacing: 0.08em; margin: 24px 0 12px; display: flex; align-items: center; gap: 8px; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 768px) { .container { padding: 0 16px; } .theme-header { padding: 20px; } .site-nav { padding: 0 16px; } .nav-links a:not(.nav-btn-flash) span { display: none; } }
+@media print { body { background: white; color: black; } .site-nav, .tabs, .no-print { display: none !important; } .page-wrap { padding-top: 0; } .tab-content { display: block !important; } .fiche-section { border: 1px solid #ccc; page-break-inside: avoid; background: white; } }
 </style>
 </head>
 <body>
@@ -81,7 +85,7 @@
   <div class="nav-links">
     <a href="index.html"><i class="fa-solid fa-house fa-sm"></i> <span>Accueil</span></a>
     <a href="quiz-blanc.html"><i class="fa-solid fa-trophy fa-sm"></i> <span>Quiz blanc</span></a>
-    <a href="index.html" class="nav-btn-flash"><i class="fa-solid fa-bolt fa-sm"></i> Flash</a>
+    <a href="index.html#feed" class="nav-btn-flash"><i class="fa-solid fa-bolt fa-sm"></i> Flash</a>
   </div>
 </nav>
 
@@ -100,10 +104,9 @@
     <button class="tab-btn active" onclick="openTab(event,'epreuve')"><i class="fa-solid fa-stopwatch fa-sm"></i> L'Épreuve (4h)</button>
     <button class="tab-btn" onclick="openTab(event,'droit')"><i class="fa-solid fa-scale-balanced fa-sm"></i> Méthode Juridique</button>
     <button class="tab-btn" onclick="openTab(event,'manag')"><i class="fa-solid fa-chart-line fa-sm"></i> Méthode Éco/Manag</button>
-    <button class="tab-btn" onclick="openTab(event,'hacks')" style="color:var(--tc); font-weight:700;"><i class="fa-solid fa-bolt fa-sm"></i> Cheat-Sheet & Patterns</button>
+    <button class="tab-btn" onclick="openTab(event,'hacks')" style="color:var(--tc);font-weight:700;"><i class="fa-solid fa-bolt fa-sm"></i> Cheat-Sheet & Patterns</button>
   </div>
 
-  <!-- ÉPREUVE -->
   <div id="epreuve" class="tab-content active">
     <div class="fiche-section">
       <h3><i class="fa-solid fa-clock"></i> Format et attentes</h3>
@@ -126,12 +129,10 @@
     </div>
   </div>
 
-  <!-- DROIT -->
   <div id="droit" class="tab-content">
     <div class="fiche-section">
       <h3><i class="fa-solid fa-scale-balanced"></i> Le Syllogisme Juridique</h3>
       <p>Méthode obligatoire pour toute question de qualification juridique. La <strong>Majeure</strong> (règle de droit) est souvent dans la dernière annexe.</p>
-
       <div class="syl-step">
         <div class="syl-num">1</div>
         <div class="syl-body"><h4>Qualification des faits</h4><p>Traduis l'histoire en vocabulaire juridique. <em>Ex : "L'employeur a procédé au licenciement de son salarié pour motif personnel."</em></p></div>
@@ -151,12 +152,10 @@
     </div>
   </div>
 
-  <!-- MANAG / ÉCO -->
   <div id="manag" class="tab-content">
     <div class="fiche-section">
       <h3><i class="fa-solid fa-chart-line"></i> La méthode A.E.I.</h3>
       <p>En Économie et en Management, structure toutes tes réponses avec la méthode <strong>A.E.I.</strong> — simple, efficace, et très appréciée des correcteurs.</p>
-
       <div class="aei-row">
         <div class="aei-letter">A</div>
         <div class="aei-content"><strong>AFFIRMER</strong><p>Donne ta réponse directe dès la première phrase. <em>Ex : "L'entreprise adopte une stratégie de domination par les coûts au sens de M. Porter."</em></p></div>
@@ -172,14 +171,12 @@
     </div>
   </div>
 
-  <!-- HACKS / CHEAT-SHEET -->
   <div id="hacks" class="tab-content">
     <div class="fiche-section">
       <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Patterns issus de 10 ans d'annales</h3>
       <p>Après analyse des sujets officiels (Altho, Notarius, Teebike, Helite…), voici les questions qui tombent <strong>à chaque session</strong> et comment les dominer.</p>
 
       <p class="pattern-section-title"><i class="fa-solid fa-sitemap fa-sm"></i> Management</p>
-
       <button class="acc-btn" onclick="toggleAcc(this)">Le Diagnostic Stratégique SWOT / PESTEL <i class="fa-solid fa-chevron-down fa-sm"></i></button>
       <div class="acc-panel">
         <span class="hack-badge">Technique pro</span>
@@ -188,7 +185,6 @@
         — <em>Forces/Faiblesses (Interne) :</em> brevet détenu, savoir-faire, manque de trésorerie.<br>
         — <em>Opportunités/Menaces (Externe — PESTEL) :</em> nouvelle loi, crise économique, technologie émergente.</p>
       </div>
-
       <button class="acc-btn" onclick="toggleAcc(this)">Les 3 Stratégies Génériques de Porter <i class="fa-solid fa-chevron-down fa-sm"></i></button>
       <div class="acc-panel">
         <span class="hack-badge">Mots magiques</span>
@@ -199,21 +195,18 @@
       </div>
 
       <p class="pattern-section-title"><i class="fa-solid fa-gavel fa-sm"></i> Droit (le plus discriminant)</p>
-
       <button class="acc-btn" onclick="toggleAcc(this)">La clause de non-concurrence <i class="fa-solid fa-chevron-down fa-sm"></i></button>
       <div class="acc-panel">
         <span class="hack-badge">Pattern infaillible</span>
         <p>Pour être valide, elle doit respecter <strong>4 conditions cumulatives</strong> : limitée dans le <strong>temps</strong>, limitée dans l'<strong>espace</strong>, <strong>indispensable</strong> aux intérêts de l'entreprise, <strong>contrepartie financière</strong>.<br>
         <em>Le sujet fera TOUJOURS manquer une condition (souvent la contrepartie). Repère-la pour conclure que la clause est nulle.</em></p>
       </div>
-
       <button class="acc-btn" onclick="toggleAcc(this)">Modification contrat vs conditions de travail <i class="fa-solid fa-chevron-down fa-sm"></i></button>
       <div class="acc-panel">
         <span class="hack-badge">Piège classique</span>
         <p>— <strong>Modification d'un élément essentiel du contrat</strong> (salaire, poste, durée) → <em>Accord du salarié OBLIGATOIRE.</em><br>
         — <strong>Changement des conditions de travail</strong> (nouveau bureau dans le même bâtiment, nouvelles tâches du même niveau) → <em>Pouvoir de direction : le salarié ne peut PAS refuser.</em></p>
       </div>
-
       <button class="acc-btn" onclick="toggleAcc(this)">Protection de l'immatériel : INPI / CNIL <i class="fa-solid fa-chevron-down fa-sm"></i></button>
       <div class="acc-panel">
         <span class="hack-badge">Où déposer ?</span>
@@ -223,7 +216,6 @@
       </div>
 
       <p class="pattern-section-title"><i class="fa-solid fa-chart-pie fa-sm"></i> Économie</p>
-
       <button class="acc-btn" onclick="toggleAcc(this)">Externalités et financement <i class="fa-solid fa-chevron-down fa-sm"></i></button>
       <div class="acc-panel">
         <span class="hack-badge">Question éco classique</span>
@@ -236,14 +228,7 @@
 
 <script>
 function openTab(e,id){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');e.currentTarget.classList.add('active');}
-function toggleAcc(btn) {
-  const panel = btn.nextElementSibling;
-  const isOpen = btn.classList.contains('open');
-  // close all
-  document.querySelectorAll('.acc-btn').forEach(b => { b.classList.remove('open'); b.querySelector('i').className='fa-solid fa-chevron-down fa-sm'; });
-  document.querySelectorAll('.acc-panel').forEach(p => p.style.display='none');
-  if (!isOpen) { btn.classList.add('open'); btn.querySelector('i').className='fa-solid fa-chevron-up fa-sm'; panel.style.display='block'; }
-}
+function toggleAcc(btn){const panel=btn.nextElementSibling;const isOpen=btn.classList.contains('open');document.querySelectorAll('.acc-btn').forEach(b=>{b.classList.remove('open');b.querySelector('i').className='fa-solid fa-chevron-down fa-sm';});document.querySelectorAll('.acc-panel').forEach(p=>p.style.display='none');if(!isOpen){btn.classList.add('open');btn.querySelector('i').className='fa-solid fa-chevron-up fa-sm';panel.style.display='block';}}
 </script>
 </body>
 </html>
